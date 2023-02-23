@@ -2,12 +2,14 @@
 
 #pragma once
 
-#include "AreanBattle.h"
+#include "ArenaBattle.h"
 
 #include "CoreMinimal.h"
 #include "Blueprint/UserWidget.h"
 #include "ABHUDWidget.generated.h"
 
+
+// 데이터 엑터 저정후 UI 연동
 /**
  * 
  */
@@ -18,11 +20,33 @@ class ARENABATTLE_API UABHUDWidget : public UUserWidget
 	
 public:
 
-	void BindCharacterStat(class UABCharacterStatCompoenent* CharacterStat);
+	void BindCharacterStat(class UABCharacterStatComponent* CharacterStat);
 	void BindPlayerState(class AABPlayerState* PlayerState);
 
 protected:
 	virtual void NativeConstruct() override;
 	void UpdateCharacterStat();
 	void UpdatePlayerState();
+
+private:
+	TWeakObjectPtr<class UABCharacterStatComponent> CurrentCharacterStat;
+	TWeakObjectPtr<class AABPlayerState> CurrentPlayerState;
+
+	UPROPERTY()
+	class UProgressBar* HPBar;
+
+	UPROPERTY()
+	class UProgressBar* ExpBar;
+
+	UPROPERTY()
+	class UTextBlock* PlayerName;
+
+	UPROPERTY()
+	class UTextBlock* PlayerLevel;
+
+	UPROPERTY()
+	class UTextBlock* CurrentScore;
+
+	UPROPERTY()
+	class UTextBlock* HighScore;
 };

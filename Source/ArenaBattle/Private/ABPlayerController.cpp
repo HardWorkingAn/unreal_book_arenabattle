@@ -6,6 +6,9 @@
 // 14장 523p
 #include "ABHUDWidget.h"
 
+// 데이터 엑터 저정후 UI 연동
+#include "ABPlayerState.h"
+
 AABPlayerController::AABPlayerController()
 {
 	// 블루프린트로 이용하기 때문에 마지막에 _C 붙여준다.
@@ -41,7 +44,15 @@ void AABPlayerController::BeginPlay()
 
 	FInputModeGameOnly InputMode;
 	SetInputMode(InputMode);
-
-
+	
+	HUDWidget = CreateWidget<UABHUDWidget>(this, HUDWidgetClass);
+	HUDWidget->AddToViewport();
+	
+	// 데이터 엑터 저정후 UI 연동
+	auto ABPlayerState = Cast<AABPlayerState>(PlayerState);
+	ABCHECK(nullptr != ABPlayerState);
+	HUDWidget->BindPlayerState(ABPlayerState);
+	ABPlayerState->OnPlayerStateChanged.Broadcast();
+	
 }
 

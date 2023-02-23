@@ -28,8 +28,9 @@
 
 // 14장
 #include "ABPlayerController.h"
-// 플레이어 데이터(정보)와 UI연동하기 위한 해더 ex) 게임점수 , 
+// 플레이어 데이터(정보)와 UI연동하기 위한 해더 ex) 게임점수 , 이름(닉네임), 레벨
 #include "ABPlayerState.h"
+#include "ABHUDWidget.h"
 
 // 캐릭터 오브젝트 -> 액터 -> 폰 -> 캐릭터 순으로 상속함  오브젝트가 Root부모
 // 캐릭터는 APawn에서 좀 더 복잡한 애니메이션을 위해 파생된 클래스라고한다. 
@@ -167,6 +168,9 @@ void AABCharacter::SetCharacterState(ECharacterState NewState)
 		{
 			// 플레이어 입력을 ABPlayerController 받는걸 중단
 			DisableInput(ABPlayerController);
+
+			// 데이터 엑터 저정후 UI 연동
+			ABPlayerController->GetHUDWidget()->BindCharacterStat(CharacterStat);
 
 			auto ABPlayerState = Cast<AABPlayerState>(GetPlayerState());
 			ABCHECK(nullptr != ABPlayerState);

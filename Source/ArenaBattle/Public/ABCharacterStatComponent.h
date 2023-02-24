@@ -40,6 +40,10 @@ public:
 	float GetAttack();
 	float GetHPRatio();
 	
+	// 경험치 저장 및 레벨변화 532p
+	int32 GetDropExp() const;
+	//
+
 	FOnHPIsZeroDelegate OnHPIsZero;
 
 	FOnHPChangedDelegate OnHPChanged;

@@ -27,6 +27,8 @@ public:
 	//virtual void Possess(APawn* aPawn) override;
 
 	class UABHUDWidget* GetHUDWidget() const;
+	// 경험치 저장 및 레벨변화 536p
+	void NPCKill(class AABCharacter* KilledNPC) const;
 
 protected:
 	virtual void BeginPlay() override;
@@ -37,4 +39,8 @@ protected:
 private:
 	UPROPERTY()
 	class UABHUDWidget* HUDWidget;
+
+	// 경험치 저장 및 레벨변화 536p
+	UPROPERTY()
+	class AABPlayerState* ABPlayerState;
 };

@@ -24,6 +24,9 @@ public:
 	// 스테이트 머신 모델로 게임 진행단계 구분 501p
 	void SetCharacterState(ECharacterState NewState);
 	ECharacterState GetCharacterState() const;
+	// 경험치 저장 및 레벨변화 532p
+	int32 GetExp() const;
+
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;

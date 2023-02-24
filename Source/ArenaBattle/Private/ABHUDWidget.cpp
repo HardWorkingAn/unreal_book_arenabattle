@@ -59,18 +59,11 @@ void UABHUDWidget::UpdatePlayerState()
 {
 	ABCHECK(CurrentPlayerState.IsValid());
 
-
-
+	// 경험치 저장 및 레벨변화 534p
+	ExpBar->SetPercent(CurrentPlayerState->GetExpRatio());
+	//
 	PlayerName->SetText(FText::FromString(CurrentPlayerState->GetPlayerName()));
-
-
-
-
 	PlayerLevel->SetText(FText::FromString(FString::FromInt(CurrentPlayerState->GetCharacterLevel())));
-
-
-
-
 	CurrentScore->SetText(FText::FromString(FString::FromInt(CurrentPlayerState->GetGameScore())));
 
 }

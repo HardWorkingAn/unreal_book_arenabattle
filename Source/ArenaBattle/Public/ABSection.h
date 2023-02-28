@@ -27,6 +27,7 @@ protected:
 public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
+
 private:
 	enum class ESectionState : uint8
 	{
@@ -52,6 +53,10 @@ private:
 									bool bFromSweep, const FHitResult& SweepResult);
 	
 	void OnNPCSpawn();
+	// 언리얼에서 제공되는 함수가 아님
+	UFUNCTION()
+	void OnKeyNPCDestroyed(AActor* DestroyedActor);
+
 private:
 	UPROPERTY(VisibleAnywhere, Category = Mesh, Meta = (AllowPrivateAccess = true))
 	TArray<UStaticMeshComponent*> GateMeshes;

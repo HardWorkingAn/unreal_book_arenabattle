@@ -29,6 +29,8 @@ public:
 	class UABHUDWidget* GetHUDWidget() const;
 	// 경험치 저장 및 레벨변화 536p
 	void NPCKill(class AABCharacter* KilledNPC) const;
+	// 546p
+	void AddGameScore() const;
 
 protected:
 	virtual void BeginPlay() override;

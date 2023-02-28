@@ -1,28 +1,30 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+ï»¿// Fill out your copyright notice in the Description page of Project Settings.
 
 
 #include "ABGameMode.h"
-//#include "ABPawn.h" // ABPawn ¸»°í PawnÀ» »ó¼Ó¹ŞÀº Characher¿¡¼­ ¿ÀºêÁ§Æ® ¼³Á¤
+//#include "ABPawn.h" // ABPawn ë§ê³  Pawnì„ ìƒì†ë°›ì€ Characherì—ì„œ ì˜¤ë¸Œì íŠ¸ ì„¤ì •
 #include "ABCharacter.h"
 #include "ABPlayerController.h"
 
-// ÇÃ·¹ÀÌ¾î ½ºÅÈÁ¤º¸ ÇØ´õÆÄÀÏ 14Àå 518p
+// í”Œë ˆì´ì–´ ìŠ¤íƒ¯ì •ë³´ í•´ë”íŒŒì¼ 14ì¥ 518p
 #include "ABPlayerState.h"
+// ìŠ¤ì½”ì–´ ì ìˆ˜ 543p
+#include "ABGameState.h"
 
 AABGameMode::AABGameMode()
 {
-	//¿¡µğÅÍÀÇ ¿ùµå¼ÂÆÃ¿¡ ¼±ÅÃÇÑ GameMode ¼³Á¤À» º¸¸é º¯°æµÈ°É º¼ ¼ö ÀÖÀ½.
-	// ±âÁ¸ Ä³¸¯ÅÍ¸¦ AABPawnÀ¸·Î ¼³Á¤
+	//ì—ë””í„°ì˜ ì›”ë“œì…‹íŒ…ì— ì„ íƒí•œ GameMode ì„¤ì •ì„ ë³´ë©´ ë³€ê²½ëœê±¸ ë³¼ ìˆ˜ ìˆìŒ.
+	// ê¸°ì¡´ ìºë¦­í„°ë¥¼ AABPawnìœ¼ë¡œ ì„¤ì •
 	//DefaultPawnClass = AABPawn::StaticClass();
-	// ±âÁ¸ Ä³¸¯ÅÍ¸¦ ABCharacterÀ¸·Î ¼³Á¤
+	// ê¸°ì¡´ ìºë¦­í„°ë¥¼ ABCharacterìœ¼ë¡œ ì„¤ì •
 	DefaultPawnClass = AABCharacter::StaticClass();
-	//±âº» playercontroller ¼Ó¼ºÀ» ABPlayerController·Î º¯°æ
+	//ê¸°ë³¸ playercontroller ì†ì„±ì„ ABPlayerControllerë¡œ ë³€ê²½
 	PlayerControllerClass = AABPlayerController::StaticClass();
 
-	//¸¸¾à ÆùÀ» ºí·ç ÇÁ¸°Æ®·Î Á¦ÀÛµÈ ÆùÀ» ±âº» ÆùÀ¸·Î »ç¿ëÇÏ°íÀÚ ÇÒ°æ¿ì Á¢¹Ì»ç _C °æ·Î¸¦ »ç¿ëÇÏ¸é ºí·çÇÁ¸°Æ® ¿¡¼Â »ç¿ë
-	//¸Ç¸¶Áö¸·¿¡ _C´Â Á÷Á¢ ºÙÀÎ°Å
-	// ¸¶Áö¸·¿¡ DefaultPawnClass¸¦ AAPawn ¿¡¼­ BP_PAWN_C·Î ¹Ù²å±â ¶§¹®¿¡ AAPawnÀÇ ABLOG°¡ È£ÃâÀÌ ¾ÈµÇ´Â°É·Î ÃßÃø
-	// Áß°£¿¡ È£ÃâµÇ´Â °ÍÀÌ ¾Æ´Ï¶ó AABGameModeÀÇ ÄÚµå¸¦ ÀüºÎ È£ÃâµÈ ÈÄ¿¡ DefaultPawnClass¸¦ È®ÀÎÀ» °ÅÃÄ ¼ÂÆÃµÇ´Â ½Ã°£¼ø¼­·Î ÃßÃø
+	//ë§Œì•½ í°ì„ ë¸”ë£¨ í”„ë¦°íŠ¸ë¡œ ì œì‘ëœ í°ì„ ê¸°ë³¸ í°ìœ¼ë¡œ ì‚¬ìš©í•˜ê³ ì í• ê²½ìš° ì ‘ë¯¸ì‚¬ _C ê²½ë¡œë¥¼ ì‚¬ìš©í•˜ë©´ ë¸”ë£¨í”„ë¦°íŠ¸ ì—ì…‹ ì‚¬ìš©
+	//ë§¨ë§ˆì§€ë§‰ì— _CëŠ” ì§ì ‘ ë¶™ì¸ê±°
+	// ë§ˆì§€ë§‰ì— DefaultPawnClassë¥¼ AAPawn ì—ì„œ BP_PAWN_Cë¡œ ë°”ê¿¨ê¸° ë•Œë¬¸ì— AAPawnì˜ ABLOGê°€ í˜¸ì¶œì´ ì•ˆë˜ëŠ”ê±¸ë¡œ ì¶”ì¸¡
+	// ì¤‘ê°„ì— í˜¸ì¶œë˜ëŠ” ê²ƒì´ ì•„ë‹ˆë¼ AABGameModeì˜ ì½”ë“œë¥¼ ì „ë¶€ í˜¸ì¶œëœ í›„ì— DefaultPawnClassë¥¼ í™•ì¸ì„ ê±°ì³ ì…‹íŒ…ë˜ëŠ” ì‹œê°„ìˆœì„œë¡œ ì¶”ì¸¡
 	/*
 	static ConstructorHelpers::FClassFinder<APawn> BP_PAWN_C(TEXT("/Game/ThirdPersonBP/Blueprints/ThirdPersonCharacter.ThirdPersonCharacter_C"));
 	if (BP_PAWN_C.Succeeded())
@@ -32,20 +34,53 @@ AABGameMode::AABGameMode()
 	*/
 
 	PlayerStateClass = AABPlayerState::StaticClass();
+	// StaticClass ëŠ” ì»´íŒŒì¼ íƒ€ì„ì—ì„œ UClass íƒ€ì…ì˜ ì •ë³´ë¥¼ ì–»ì–´ì˜¤ëŠ” ê²ƒì´ë©°, GetClass ëŠ” ëŸ°íƒ€ì„ì—ì„œ ì‹¤ì œ ê°ì²´ì˜ í´ë˜ìŠ¤ë¥¼ ì¡°íšŒí• ë•Œ ì‚¬ìš©ëœë‹¤.
+	//GameStateClass = AABGameMode::StaticClass(); // ì—ëŸ¬ ë°œìƒ
+	GameStateClass = AABGameState::StaticClass();
+	ABLOG(Warning, TEXT("ìƒì„±ì í˜¸ì¶œ"));
+}
+
+void AABGameMode::PostInitializeComponents()
+{
+	Super::PostInitializeComponents();
+	ABGameState = Cast<AABGameState>(GameState);
+	ABLOG(Warning, TEXT("PostInitializeComponents í˜¸ì¶œ"));
 }
 
 void AABGameMode::PostLogin(APlayerController* NewPlayer)
 {
 	ABLOG(Warning, TEXT("PostLogin Begin"));
 	Super::PostLogin(NewPlayer);
-	ABLOG(Warning, TEXT("PostLogin End"));
 
-	// AABPlayerState ·Î PlayerState º¯¼ö¸¦ ´Ù¿îÄ³½ºÆÃÀ» ÇÑ´Ù.
-	// AABPlayerState´Â APlayerState »ó¼Ó¹ŞÀ¸¸ç, PlayerState´Â APlayerStateÀÇ Å¬·¡½º º¯¼ö ÀÌ¹Ç·Î PlayState´Â Å¬·¡½º´Â AABPlayerStateÀÇ »óÀ§ Å¬·¡½º ÀÌ¹Ç·Î
-	// PlayerState´Â º¯¼öÀÇ Å¬·¡½º´Â AABPlayState·Î ´Ù¿îÄ³½ºÆÃÀ» ÇÑ´Ù.
-	// ¸¸¾à PlayerStateÀÇ Å¬·¡½º´Â AABPlayerStateÀÇ »óÀ§ Å¬·¡½º°¡ ¾Æ´Ï¶ó¸é Cast´Â ½ÇÆĞ°¡ µÇ¾î auto·Î ¼³Á¤µÈ ABPlayState¿¡´Â nullptrÀ» °¡Áö°ÔµÈ´Ù.
+	// AABPlayerState ë¡œ PlayerState ë³€ìˆ˜ë¥¼ ë‹¤ìš´ìºìŠ¤íŒ…ì„ í•œë‹¤.
+	// AABPlayerStateëŠ” APlayerState ìƒì†ë°›ìœ¼ë©°, PlayerStateëŠ” APlayerStateì˜ í´ë˜ìŠ¤ ë³€ìˆ˜ ì´ë¯€ë¡œ PlayStateëŠ” í´ë˜ìŠ¤ëŠ” AABPlayerStateì˜ ìƒìœ„ í´ë˜ìŠ¤ ì´ë¯€ë¡œ
+	// PlayerStateëŠ” ë³€ìˆ˜ì˜ í´ë˜ìŠ¤ëŠ” AABPlayStateë¡œ ë‹¤ìš´ìºìŠ¤íŒ…ì„ í•œë‹¤.
+	// ë§Œì•½ PlayerStateì˜ í´ë˜ìŠ¤ëŠ” AABPlayerStateì˜ ìƒìœ„ í´ë˜ìŠ¤ê°€ ì•„ë‹ˆë¼ë©´ CastëŠ” ì‹¤íŒ¨ê°€ ë˜ì–´ autoë¡œ ì„¤ì •ëœ ABPlayStateì—ëŠ” nullptrì„ ê°€ì§€ê²Œëœë‹¤.
 	auto ABPlayerState = Cast<AABPlayerState>(NewPlayer->PlayerState);
 	ABCHECK(nullptr != ABPlayerState);
 	ABPlayerState->InitPlayerData();
 
+	ABLOG(Warning, TEXT("PostLogin End"));
+}
+
+
+
+
+void AABGameMode::AddScore(AABPlayerController* ScoredPlayer)
+{
+	for (FConstPlayerControllerIterator It = GetWorld()->GetPlayerControllerIterator(); It; ++It)
+	{
+		const auto ABPlayerController = Cast<AABPlayerController>(It->Get());
+		if ((nullptr != ABPlayerController) && (ScoredPlayer == ABPlayerController))
+		{
+			ABPlayerController->AddGameScore();
+			break;
+		}
+	}
+	// AABGameState::StaticClass() ì„ í†µí•´ GameStateClassì— AABGameState í´ë˜ìŠ¤ë¥¼ í• ë‹¹í•˜ì˜€ê³   GameStateë¥¼ í†µí•´ AABGameStateì˜ í¬ì¸í„°ë¥¼ ì–»ì–´ ABGameState ë³€ìˆ˜ì— í• ë‹¹
+	// ì˜¤ë¥˜ê°€ ë‚œ ì´ìœ ëŠ” GameStateClassì— AABGameMode í´ë˜ìŠ¤ë¥¼ ë‹´ì•˜ê³ (ìƒì„±ì ì—ëŸ¬ì°¸ê³ ) 
+	// ì´ë¡œì¸í•´ GameStateëŠ” AABGameStateë¥¼ ABGmaeStateì— ë‹´ê³  ì‹¶ì—ˆì§€ë§Œ GameState ë³€ìˆ˜ì—ëŠ” GameMode í´ë˜ìŠ¤ ì •ë³´ë§Œ í• ë‹¹í•˜ê³  ìˆê³  GameModeì— ABGameStateì— ì •ë³´ê°€ ì—†ì–´
+	// ABGameStateì— ëŒ€í•´ ë³€ìˆ˜ì™€ í•¨ìˆ˜ê°€ ì•¡ì„¸ìŠ¤ë¥¼ í•  ìˆ˜ê°€ ì—†ì–´ AddGameScoreë¥¼ í˜¸ì¶œí•  ìˆ˜ ì—†ì—ˆë‹¤.
+
+	ABGameState->AddGameScore();
 }

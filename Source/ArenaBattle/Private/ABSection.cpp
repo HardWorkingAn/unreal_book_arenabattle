@@ -1,11 +1,16 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+ï»¿// Fill out your copyright notice in the Description page of Project Settings.
 
 
 #include "ABSection.h"
 
-// NPC ¸®Á¨°ú ¾ÆÀÌÅÛ ¸®Á¨¿¡ ÇÊ¿äÇÑ Çì´õ
+// NPC ë¦¬ì  ê³¼ ì•„ì´í…œ ë¦¬ì  ì— í•„ìš”í•œ í—¤ë”
 #include "ABCharacter.h"
 #include "ABItemBox.h"
+
+// 544p ì¶”ê°€
+#include "ABPlayerController.h"
+// 549p ì¶”ê°€
+#include "ABGameMode.h"
 
 // Sets default values
 AABSection::AABSection()
@@ -13,11 +18,11 @@ AABSection::AABSection()
 	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = false;
 
-	// ¸Ş½¬ »ı¼º ¹× ÃÖ»óÀ§ °èÃş(·çÆ®) ¸Ş½¬ ¼³Á¤
+	// ë©”ì‰¬ ìƒì„± ë° ìµœìƒìœ„ ê³„ì¸µ(ë£¨íŠ¸) ë©”ì‰¬ ì„¤ì •
 	Mesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("MESH"));
 	RootComponent = Mesh;
 
-	// ±âÁ¸ SM_SQUARE ¸Ê¿¡´Â °¢ ¹æÇâº° ÃâÀÔ¹® °ú ¼½¼ÇÀ» ÀÌ¾î ºÙÀÏ ¼ö ÀÖ°Ô ¿©´ü°³ÀÇ ¼ÒÄÏÀÌ ºÎÂøµÇ¾î ÀÖ´Ù.
+	// ê¸°ì¡´ SM_SQUARE ë§µì—ëŠ” ê° ë°©í–¥ë³„ ì¶œì…ë¬¸ ê³¼ ì„¹ì…˜ì„ ì´ì–´ ë¶™ì¼ ìˆ˜ ìˆê²Œ ì—¬ëŸê°œì˜ ì†Œì¼“ì´ ë¶€ì°©ë˜ì–´ ìˆë‹¤.
 	FString AssetPath = TEXT("/Game/Book/StaticMesh/SM_SQUARE.SM_SQUARE");
 	static ConstructorHelpers::FObjectFinder<UStaticMesh> SM_SQUARE(*AssetPath);
 	if (SM_SQUARE.Succeeded())
@@ -29,8 +34,8 @@ AABSection::AABSection()
 		ABLOG(Error, TEXT("Failed to load staticmesh asset. : %s"), *AssetPath);
 	}
 
-	// ÇÁ·ÎÁ§Æ® Äİ¸®Àü ¿¡¼­ Ãß°¡ÇÑ Trigger ¼³Á¤
-	// ¹Ú½º¸ğ¾ç ÄÄÆ÷³ÍÆ® »ı¼º ÈÄ ¹®¿¡ ºÎÂø
+	// í”„ë¡œì íŠ¸ ì½œë¦¬ì „ ì—ì„œ ì¶”ê°€í•œ Trigger ì„¤ì •
+	// ë°•ìŠ¤ëª¨ì–‘ ì»´í¬ë„ŒíŠ¸ ìƒì„± í›„ ë¬¸ì— ë¶€ì°©
 	Trigger = CreateDefaultSubobject<UBoxComponent>(TEXT("TRIGGER"));
 	Trigger->SetBoxExtent(FVector(775.0f, 775.0f, 300.0f));
 	Trigger->SetupAttachment(RootComponent);
@@ -49,7 +54,7 @@ AABSection::AABSection()
 	static FName GateSockets[] = { TEXT("+XGate"), TEXT("-XGate"), TEXT("+YGate") ,TEXT("-YGate") };
 	for (FName GateSocket : GateSockets)
 	{
-		// DoesSocketExist : ÁÖ¾îÁø ÀÌ¸§ÀÇ ¼ÒÄÏÀÌ Á¸ÀçÇÏ¸é true¸¦ ¹İÈ¯ÇÕ´Ï´Ù.
+		// DoesSocketExist : ì£¼ì–´ì§„ ì´ë¦„ì˜ ì†Œì¼“ì´ ì¡´ì¬í•˜ë©´ trueë¥¼ ë°˜í™˜í•©ë‹ˆë‹¤.
 		ABCHECK(Mesh->DoesSocketExist(GateSocket));
 		UStaticMeshComponent* NewGate = CreateDefaultSubobject<UStaticMeshComponent>(*GateSocket.ToString());
 		NewGate->SetStaticMesh(SM_GATE.Object);
@@ -66,12 +71,12 @@ AABSection::AABSection()
 
 		NewGateTrigger->OnComponentBeginOverlap.AddDynamic(this, &AABSection::OnGateTriggerBeginOverlap);
 		NewGateTrigger->ComponentTags.Add(GateSocket);
-		// °³ÀÎÈ®ÀÎ¿ë Ãß°¡
+		// ê°œì¸í™•ì¸ìš© ì¶”ê°€
 		UE_LOG(LogTemp, Warning, TEXT("%s : %s"), *GateSocket.ToString(), *GateSocket.ToString().Append("Trigger"));
 	}
 	bNoBattle = false;
 
-	// ½ºÆù Å¸ÀÌ¸Ó °ª ¼³Á¤
+	// ìŠ¤í° íƒ€ì´ë¨¸ ê°’ ì„¤ì •
 	EnemySpawnTime = 2.0f;
 	ItemBoxSpawnTime = 5.0f;
 }
@@ -115,8 +120,8 @@ void AABSection::SetState(ESectionState NewState)
 		}
 		OperateGates(false);
 
-		// ½ºÆù ¼³Á¤
-
+		// ìŠ¤í° ì„¤ì •
+		// NPC ìƒì„±OnNPCSpawn() í•¨ìˆ˜ë¥¼ ì´ìš©ì‘ë™í•˜ì—¬ NPCë¥¼ ìŠ¤í°
 		GetWorld()->GetTimerManager().SetTimer(SpawnNPCTimerHandle, FTimerDelegate::CreateUObject(this, &AABSection::OnNPCSpawn), EnemySpawnTime, false);
 		GetWorld()->GetTimerManager().SetTimer(SpawnItemBoxTimerHandle, FTimerDelegate::CreateLambda([this]()-> void
 			{
@@ -124,7 +129,6 @@ void AABSection::SetState(ESectionState NewState)
 				GetWorld()->SpawnActor<AABItemBox>(GetActorLocation() + FVector(RandXY, 30.0f), FRotator::ZeroRotator);
 
 			}),ItemBoxSpawnTime, false);
-
 		break;
 	}
 	case ESectionState::COMPLETE:
@@ -139,6 +143,7 @@ void AABSection::SetState(ESectionState NewState)
 		break;
 	}
 	}
+	
 	CurrentState = NewState;
 }
 
@@ -203,7 +208,38 @@ void AABSection::OnGateTriggerBeginOverlap(UPrimitiveComponent* OverlappedCompon
 }
 
 void AABSection::OnNPCSpawn()
+{	
+	// 544p ì—ì„œ ì½”ë“œ ìˆ˜ì •
+	// ìƒˆë¡œìš´ ë§µ ë“¤ì–´ê°€ë©´ NPC ìƒì„±
+	// GetWorld()->SpawnActor<AABCharacter>(GetActorLocation() + FVector::UpVector * 88.0f, FRotator::ZeroRotator);
+
+	//  í˜„ì¬ ì•¡í„°ê°€ ì¡´ì¬í•˜ëŠ” ì›”ë“œì˜ íƒ€ì´ë¨¸ ë§¤ë‹ˆì €ì—ì„œ ì´ì „ì— ìƒì„±ëœ SpawnNPCTimerHandle íƒ€ì´ë¨¸ë¥¼ ì œê±°í•˜ëŠ” ì½”ë“œ
+
+	// GetWorld()->GetTimerManager().ClearTimer(SpawnNPCTimerHandle);
+
+	auto KeyNPC = GetWorld()->SpawnActor<AABCharacter>(GetActorLocation() + FVector::UpVector * 88.0f, FRotator::ZeroRotator);
+	if (nullptr != KeyNPC)
+	{
+		KeyNPC->OnDestroyed.AddDynamic(this, &AABSection::OnKeyNPCDestroyed);
+	}
+}
+
+void AABSection::OnKeyNPCDestroyed(AActor* DestroyedActor)
 {
-	GetWorld()->SpawnActor<AABCharacter>(GetActorLocation() + FVector::UpVector * 88.0f, FRotator::ZeroRotator);
+	ABLOG(Warning, TEXT("OnKeyNPCDestroyed ê°œì¸ ì²´í¬ ë¡œê·¸"));
+
+	auto ABCharacter = Cast<AABCharacter>(DestroyedActor);
+	ABCHECK(nullptr != ABCharacter);
+
+	// LastHitByëŠ” ë§ˆì§€ë§‰ìœ¼ë¡œ ì–´ë–¤ ê³µê²©ìì—ê²Œ ê³µê²©ì„ ë°›ì•˜ëŠ”ì§€ ì €ì¥í•˜ëŠ” ë³€ìˆ˜
+	auto ABPlayerController = Cast<AABPlayerController>(ABCharacter->LastHitBy);
+	ABCHECK(nullptr != ABPlayerController);
+	//549p ì¶”ê°€
+	// GetAuthGameMode : í˜„ì¬ ì‹¤í–‰ ì¤‘ì¸ ì„œë²„ì—ì„œ ì‚¬ìš© ì¤‘ì¸ ê²Œì„ ëª¨ë“œ í´ë˜ìŠ¤ë¥¼ ë°˜í™˜í•˜ëŠ” í•¨ìˆ˜ì…ë‹ˆë‹¤.
+	auto ABGameMode = Cast<AABGameMode>(GetWorld()->GetAuthGameMode());
+	ABCHECK(nullptr != ABGameMode);
+	ABGameMode->AddScore(ABPlayerController);
+
+	SetState(ESectionState::COMPLETE);
 }
 

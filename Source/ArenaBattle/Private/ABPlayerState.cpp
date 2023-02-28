@@ -1,6 +1,4 @@
 // Fill out your copyright notice in the Description page of Project Settings.
-
-#include "ArenaBattle.h"
 #include "ABPlayerState.h"
 
 // 경험치 저장 및 레벨변화 532p
@@ -63,6 +61,12 @@ bool AABPlayerState::AddExp(int32 IncomeExp)
 	}
 	OnPlayerStateChanged.Broadcast();
 	return DidLevelUp;
+}
+
+void AABPlayerState::AddGameScore()
+{
+	GameScore++;
+	OnPlayerStateChanged.Broadcast();
 }
 
 void AABPlayerState::SetCharacterLevel(int32 NewCharacterLevel)

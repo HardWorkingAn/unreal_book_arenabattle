@@ -2,6 +2,8 @@
 
 #pragma once
 
+#include "ArenaBattle.h"
+
 #include "CoreMinimal.h"
 #include "GameFramework/PlayerState.h"
 #include "ABPlayerState.generated.h"
@@ -9,6 +11,9 @@
 /**
  * 
  */
+
+// 현제 게임에서 플레이어 레벨, 체력, 경험치, 점수를 저장하는 곳
+// 외부 클래스에서 ABPlayerState 함수를 이용해 레벨 체력 경험치 점수를 설정함
 
 DECLARE_MULTICAST_DELEGATE(FOnPlayerChangedDelegate);
 
@@ -28,6 +33,8 @@ public:
 	float GetExpRatio() const;
 	bool AddExp(int32 IncomeExp);
 	
+	// 546p 추가
+	void AddGameScore();
 	//델리게이트 생성 14장 525p
 	
 	FOnPlayerChangedDelegate OnPlayerStateChanged;

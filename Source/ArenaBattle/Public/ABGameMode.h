@@ -17,7 +17,16 @@ class ARENABATTLE_API AABGameMode : public AGameModeBase
 	
 public:
 	AABGameMode();
-
+	// 547p
+	virtual void PostInitializeComponents() override;
+	
 	// 언리얼 엔진에서 플레이어가 게임에 입장하는것을 로그인이라 하며 로그인 과정에서 플레이어에게 할당된 플레이어 컨트룰러가 생성
 	virtual void PostLogin(APlayerController* NewPlayer) override;
+
+	// 547p
+	void AddScore(class AABPlayerController *ScoredPlayer);
+
+private:
+	UPROPERTY()
+	class AABGameState* ABGameState;
 };

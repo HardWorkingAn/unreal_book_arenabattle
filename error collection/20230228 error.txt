@@ -1,0 +1,27 @@
+Fatal error!
+
+Unhandled Exception: EXCEPTION_ACCESS_VIOLATION writing address 0x0000000000000350
+
+0x00007fffd5528790 UE4Editor-ArenaBattle-8831.dll!AABGameState::AddGameScore() [E:\ArenaBattle\Source\ArenaBattle\Private\ABGameState.cpp:16]
+0x00007fffd55334a1 UE4Editor-ArenaBattle-8831.dll!AABSection::OnKeyNPCDestroyed() [E:\ArenaBattle\Source\ArenaBattle\Private\ABSection.cpp:256]
+0x00007fffd553b448 UE4Editor-ArenaBattle-8831.dll!AABSection::execOnKeyNPCDestroyed() [E:\ArenaBattle\Intermediate\Build\Win64\UE4Editor\Inc\ArenaBattle\ABSection.gen.cpp:33]
+0x00007ff830ff19c4 UE4Editor-CoreUObject.dll!UFunction::Invoke() [D:\Build\++UE4\Sync\Engine\Source\Runtime\CoreUObject\Private\UObject\Class.cpp:5679]
+0x00007ff8312d3ca3 UE4Editor-CoreUObject.dll!UObject::ProcessEvent() [D:\Build\++UE4\Sync\Engine\Source\Runtime\CoreUObject\Private\UObject\ScriptCore.cpp:2018]
+0x00007ff80d29942a UE4Editor-Engine.dll!AActor::ProcessEvent() [D:\Build\++UE4\Sync\Engine\Source\Runtime\Engine\Private\Actor.cpp:863]
+0x00007ff80d188dab UE4Editor-Engine.dll!TMulticastScriptDelegate<FWeakObjectPtr>::ProcessMulticastDelegate<UObject>() [D:\Build\++UE4\Sync\Engine\Source\Runtime\Core\Public\UObject\ScriptDelegates.h:488]
+0x00007ff80d2701d8 UE4Editor-Engine.dll!AActor::Destroyed() [D:\Build\++UE4\Sync\Engine\Source\Runtime\Engine\Private\Actor.cpp:2337]
+0x00007ff80db6ebc7 UE4Editor-Engine.dll!UWorld::DestroyActor() [D:\Build\++UE4\Sync\Engine\Source\Runtime\Engine\Private\LevelActor.cpp:711]
+0x00007ff80d26f39a UE4Editor-Engine.dll!AActor::Destroy() [D:\Build\++UE4\Sync\Engine\Source\Runtime\Engine\Private\Actor.cpp:4059]
+0x00007ff80e4992e0 UE4Editor-Engine.dll!FTimerUnifiedDelegate::Execute() [D:\Build\++UE4\Sync\Engine\Source\Runtime\Engine\Public\TimerManager.h:51]
+0x00007ff80e4c7de9 UE4Editor-Engine.dll!FTimerManager::Tick() [D:\Build\++UE4\Sync\Engine\Source\Runtime\Engine\Private\TimerManager.cpp:881]
+0x00007ff80dbaf97d UE4Editor-Engine.dll!UWorld::Tick() [D:\Build\++UE4\Sync\Engine\Source\Runtime\Engine\Private\LevelTick.cpp:1558]
+0x00007ff811e814c3 UE4Editor-UnrealEd.dll!UEditorEngine::Tick() [D:\Build\++UE4\Sync\Engine\Source\Editor\UnrealEd\Private\EditorEngine.cpp:1736]
+0x00007ff812782ba6 UE4Editor-UnrealEd.dll!UUnrealEdEngine::Tick() [D:\Build\++UE4\Sync\Engine\Source\Editor\UnrealEd\Private\UnrealEdEngine.cpp:426]
+0x00007ff7a61587a0 UE4Editor.exe!FEngineLoop::Tick() [D:\Build\++UE4\Sync\Engine\Source\Runtime\Launch\Private\LaunchEngineLoop.cpp:4921]
+0x00007ff7a6170fcc UE4Editor.exe!GuardedMain() [D:\Build\++UE4\Sync\Engine\Source\Runtime\Launch\Private\Launch.cpp:178]
+0x00007ff7a61710ba UE4Editor.exe!GuardedMainWrapper() [D:\Build\++UE4\Sync\Engine\Source\Runtime\Launch\Private\Windows\LaunchWindows.cpp:137]
+0x00007ff7a61740dd UE4Editor.exe!LaunchWindowsStartup() [D:\Build\++UE4\Sync\Engine\Source\Runtime\Launch\Private\Windows\LaunchWindows.cpp:273]
+0x00007ff7a6185984 UE4Editor.exe!WinMain() [D:\Build\++UE4\Sync\Engine\Source\Runtime\Launch\Private\Windows\LaunchWindows.cpp:320]
+0x00007ff7a618853a UE4Editor.exe!__scrt_common_main_seh() [d:\agent\_work\5\s\src\vctools\crt\vcstartup\src\startup\exe_common.inl:288]
+0x00007ff873867614 KERNEL32.DLL!UnknownFunction []
+0x00007ff8742426a1 ntdll.dll!UnknownFunction []

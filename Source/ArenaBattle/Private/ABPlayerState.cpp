@@ -4,12 +4,18 @@
 // 경험치 저장 및 레벨변화 532p
 #include "ABGameInstance.h"
 
+// 15장 554p SaveGame
+#include "ABSaveGame.h"
+
 AABPlayerState::AABPlayerState()
 {
 	CharacterLevel = 1;
 	GameScore = 0;
-
 	Exp = 0;
+
+	// 15장 GameSave파일 554p
+	GameHighScore = 0;
+	SaveSlotName = TEXT("Player1");
 }
 
 int32 AABPlayerState::GetGameScore() const
@@ -22,13 +28,33 @@ int32 AABPlayerState::GetCharacterLevel() const
 	return CharacterLevel;
 }
 
+int32 AABPlayerState::GetGameHighScroe() const
+{
+	return GameHighScore;
+}
+
 void AABPlayerState::InitPlayerData()
 {
+	// 555p 에서 다시 작성
+	/*
 	SetPlayerName(TEXT("Destiny"));
 	//CharacterLevel = 5;
 	SetCharacterLevel(5);
 	Exp = 0;
 	GameScore = 0;
+	*/
+
+	auto ABSaveGmae = Cast<UABSaveGame>(UGameplayStatics::LoadGameFromSlot(SaveSlotName, 0));
+	if (nullptr == ABSaveGmae)
+	{
+		ABSaveGmae = GetMutableDefault<UABSaveGame>();
+	}
+	SetPlayerName(ABSaveGmae->PlayerName);
+	SetCharacterLevel(ABSaveGmae->Level);
+	GameScore = 0;
+	GameHighScore = ABSaveGmae->HighScore;
+	Exp = ABSaveGmae->Exp;
+
 }
 
 float AABPlayerState::GetExpRatio() const
@@ -66,6 +92,13 @@ bool AABPlayerState::AddExp(int32 IncomeExp)
 void AABPlayerState::AddGameScore()
 {
 	GameScore++;
+	
+	// 15장 556p 코드추가
+	if(GameScore >= GameHighScore)
+	{
+		GameHighScore = GameScore;
+	}
+	//
 	OnPlayerStateChanged.Broadcast();
 }
 

@@ -18,13 +18,14 @@ class ARENABATTLE_API AABGameState : public AGameStateBase
 	
 public:
 	AABGameState();
-	
-public:
+
 	int32 GetTotalGameScore() const;
 	void AddGameScore();
 
 private:
 	UPROPERTY(Transient)
 	int32 TotalGameScore;
+
+
 
 };

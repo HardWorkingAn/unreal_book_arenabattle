@@ -28,6 +28,11 @@ public:
 	int32 GetGameScore() const;
 	int32 GetCharacterLevel() const;
 	
+	// 15장 GameSave파일 554p
+	int32 GetGameHighScroe() const;
+	FString SaveSlotName;
+	//
+
 	void InitPlayerData();
 	// 경험치 저장 및 레벨변화 532p
 	float GetExpRatio() const;
@@ -45,6 +50,11 @@ protected:
 	// 이를 통해, 변수의 상태를 일시적으로 유지하면서도, 게임 데이터의 크기를 줄이고, 게임 실행 속도를 높일 수 있다.
 	UPROPERTY(Transient)
 	int32 GameScore;
+
+	// 15장 GameSave파일 554p
+	UPROPERTY(Transient)
+	int32 GameHighScore;
+	//
 
 	UPROPERTY(Transient)
 	int32 CharacterLevel;

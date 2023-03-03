@@ -1,4 +1,4 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+ï»¿// Fill out your copyright notice in the Description page of Project Settings.
 
 #pragma once
 
@@ -12,8 +12,8 @@
  * 
  */
 
-// ÇöÁ¦ °ÔÀÓ¿¡¼­ ÇÃ·¹ÀÌ¾î ·¹º§, Ã¼·Â, °æÇèÄ¡, Á¡¼ö¸¦ ÀúÀåÇÏ´Â °÷
-// ¿ÜºÎ Å¬·¡½º¿¡¼­ ABPlayerState ÇÔ¼ö¸¦ ÀÌ¿ëÇØ ·¹º§ Ã¼·Â °æÇèÄ¡ Á¡¼ö¸¦ ¼³Á¤ÇÔ
+// í˜„ì œ ê²Œì„ì—ì„œ í”Œë ˆì´ì–´ ë ˆë²¨, ì²´ë ¥, ê²½í—˜ì¹˜, ì ìˆ˜ë¥¼ ì €ì¥í•˜ëŠ” ê³³
+// ì™¸ë¶€ í´ë˜ìŠ¤ì—ì„œ ABPlayerState í•¨ìˆ˜ë¥¼ ì´ìš©í•´ ë ˆë²¨ ì²´ë ¥ ê²½í—˜ì¹˜ ì ìˆ˜ë¥¼ ì„¤ì •í•¨
 
 DECLARE_MULTICAST_DELEGATE(FOnPlayerChangedDelegate);
 
@@ -28,30 +28,32 @@ public:
 	int32 GetGameScore() const;
 	int32 GetCharacterLevel() const;
 	
-	// 15Àå GameSaveÆÄÀÏ 554p
+	// 15ì¥ GameSaveíŒŒì¼ 554p
 	int32 GetGameHighScroe() const;
 	FString SaveSlotName;
 	//
 
 	void InitPlayerData();
-	// °æÇèÄ¡ ÀúÀå ¹× ·¹º§º¯È­ 532p
+	// ê²½í—˜ì¹˜ ë³€ë™ì´ ìˆì„ë•Œ ë§ˆë‹¤ ì €ì¥ 557p ì¶”ê°€
+	void SavePlayerData();
+	// ê²½í—˜ì¹˜ ì €ì¥ ë° ë ˆë²¨ë³€í™” 532p
 	float GetExpRatio() const;
 	bool AddExp(int32 IncomeExp);
 	
-	// 546p Ãß°¡
+	// 546p ì¶”ê°€
 	void AddGameScore();
-	//µ¨¸®°ÔÀÌÆ® »ı¼º 14Àå 525p
+	//ë¸ë¦¬ê²Œì´íŠ¸ ìƒì„± 14ì¥ 525p
 	
 	FOnPlayerChangedDelegate OnPlayerStateChanged;
 
 protected:
-	// Transient ´Â °ªÀÌ ¼ö½Ã·Î º¯°æµÇ´Â º¯¼ö¿¡ ¼³Á¤ÇÏ´Â °ÍÀ¸·Î, º¯¼ö°¡ ÀÏ½ÃÀûÀ¸·Î Á¸ÀçÇÏ¸ç, ÀúÀåÇÏÁö ¾Ê°í Á÷·ÄÈ­ÇÏÁö ¾Ê´Â °ÍÀ» ³ªÅ¸³½´Ù.
-	// °ÔÀÓ ÀúÀåÀÌ³ª ·Îµù µîÀ» ¼öÇàÇÏÁö ¾ÊÀ¸¸ç °ÔÀÓ ½ÇÇà Áß¿¡¸¸ À¯ÁöµË´Ï´Ù. 
-	// ÀÌ¸¦ ÅëÇØ, º¯¼öÀÇ »óÅÂ¸¦ ÀÏ½ÃÀûÀ¸·Î À¯ÁöÇÏ¸é¼­µµ, °ÔÀÓ µ¥ÀÌÅÍÀÇ Å©±â¸¦ ÁÙÀÌ°í, °ÔÀÓ ½ÇÇà ¼Óµµ¸¦ ³ôÀÏ ¼ö ÀÖ´Ù.
+	// Transient ëŠ” ê°’ì´ ìˆ˜ì‹œë¡œ ë³€ê²½ë˜ëŠ” ë³€ìˆ˜ì— ì„¤ì •í•˜ëŠ” ê²ƒìœ¼ë¡œ, ë³€ìˆ˜ê°€ ì¼ì‹œì ìœ¼ë¡œ ì¡´ì¬í•˜ë©°, ì €ì¥í•˜ì§€ ì•Šê³  ì§ë ¬í™”í•˜ì§€ ì•ŠëŠ” ê²ƒì„ ë‚˜íƒ€ë‚¸ë‹¤.
+	// ê²Œì„ ì €ì¥ì´ë‚˜ ë¡œë”© ë“±ì„ ìˆ˜í–‰í•˜ì§€ ì•Šìœ¼ë©° ê²Œì„ ì‹¤í–‰ ì¤‘ì—ë§Œ ìœ ì§€ë©ë‹ˆë‹¤. 
+	// ì´ë¥¼ í†µí•´, ë³€ìˆ˜ì˜ ìƒíƒœë¥¼ ì¼ì‹œì ìœ¼ë¡œ ìœ ì§€í•˜ë©´ì„œë„, ê²Œì„ ë°ì´í„°ì˜ í¬ê¸°ë¥¼ ì¤„ì´ê³ , ê²Œì„ ì‹¤í–‰ ì†ë„ë¥¼ ë†’ì¼ ìˆ˜ ìˆë‹¤.
 	UPROPERTY(Transient)
 	int32 GameScore;
 
-	// 15Àå GameSaveÆÄÀÏ 554p
+	// 15ì¥ GameSaveíŒŒì¼ 554p
 	UPROPERTY(Transient)
 	int32 GameHighScore;
 	//
@@ -59,13 +61,13 @@ protected:
 	UPROPERTY(Transient)
 	int32 CharacterLevel;
 
-	// °æÇèÄ¡ ÀúÀå ¹× ·¹º§º¯È­ 532p
+	// ê²½í—˜ì¹˜ ì €ì¥ ë° ë ˆë²¨ë³€í™” 532p
 	UPROPERTY(Transient)
 	int32 Exp;
 
 private:
-	// °æÇèÄ¡ ÀúÀå ¹× ·¹º§º¯È­ 532p
+	// ê²½í—˜ì¹˜ ì €ì¥ ë° ë ˆë²¨ë³€í™” 532p
 	void SetCharacterLevel(int32 NewCharacterLevel);
-	// FABCharacterData ´Â ABGameInstance¿¡¼­ »ç¿ë
+	// FABCharacterData ëŠ” ABGameInstanceì—ì„œ ì‚¬ìš©
 	struct FABCharacterData* CurrentStatData;
 };

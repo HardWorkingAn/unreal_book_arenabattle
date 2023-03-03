@@ -1,10 +1,10 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+ï»¿// Fill out your copyright notice in the Description page of Project Settings.
 #include "ABPlayerState.h"
 
-// °æÇèÄ¡ ÀúÀå ¹× ·¹º§º¯È­ 532p
+// ê²½í—˜ì¹˜ ì €ì¥ ë° ë ˆë²¨ë³€í™” 532p
 #include "ABGameInstance.h"
 
-// 15Àå 554p SaveGame
+// 15ì¥ 554p SaveGame
 #include "ABSaveGame.h"
 
 AABPlayerState::AABPlayerState()
@@ -13,7 +13,7 @@ AABPlayerState::AABPlayerState()
 	GameScore = 0;
 	Exp = 0;
 
-	// 15Àå GameSaveÆÄÀÏ 554p
+	// 15ì¥ GameSaveíŒŒì¼ 554p
 	GameHighScore = 0;
 	SaveSlotName = TEXT("Player1");
 }
@@ -35,7 +35,7 @@ int32 AABPlayerState::GetGameHighScroe() const
 
 void AABPlayerState::InitPlayerData()
 {
-	// 555p ¿¡¼­ ´Ù½Ã ÀÛ¼º
+	// 555p ì—ì„œ ë‹¤ì‹œ ì‘ì„±
 	/*
 	SetPlayerName(TEXT("Destiny"));
 	//CharacterLevel = 5;
@@ -54,18 +54,34 @@ void AABPlayerState::InitPlayerData()
 	GameScore = 0;
 	GameHighScore = ABSaveGmae->HighScore;
 	Exp = ABSaveGmae->Exp;
+	//ê²½í—˜ì¹˜ ë³€ë™ì´ ìˆì„ë•Œ ë§ˆë‹¤ ì €ì¥ 557p ì¶”ê°€
+	SavePlayerData();
+}
+
+void AABPlayerState::SavePlayerData()
+{
+	UABSaveGame* NewPlayerData = NewObject<UABSaveGame>();
+	NewPlayerData->PlayerName = GetPlayerName();
+	NewPlayerData->Level = CharacterLevel;
+	NewPlayerData->Exp = Exp;
+	NewPlayerData->HighScore = GameHighScore;
+
+	if (!UGameplayStatics::SaveGameToSlot(NewPlayerData, SaveSlotName, 0))
+	{
+		ABLOG(Error, TEXT("Save Game Error!"));
+	}
 
 }
 
 float AABPlayerState::GetExpRatio() const
 {
-	// KINDA_SMALL_NUMBER ´Â float ºñÆ® ³¡¿¡ ³²¾ÆÀÖ´Â ºñÆ® ‹š¹®¿¡ 0º¸´Ù Å©°Ô ³ªÅ¸³­´Ù. ÀÌ¸¦ ÇØ°áÇÏ°íÀÚ Á»´õ ¹Ì¼¼ÇÑ ¿ÀÂ÷¸¦ ÇØ°áÇÏ±â À§ÇØ ¾²´Â °ª
-	// KINDA_SMALL_NUMBER Àº 0¿¡ °¡±î¿ò, float°ªÀ» 0°ú ºñ±³ÇÒ¶§ 0º¸´Ù KINDA_SMALL_NUMBERÀ» »ç¿ëÇÔ
+	// KINDA_SMALL_NUMBER ëŠ” float ë¹„íŠ¸ ëì— ë‚¨ì•„ìˆëŠ” ë¹„íŠ¸ ë–„ë¬¸ì— 0ë³´ë‹¤ í¬ê²Œ ë‚˜íƒ€ë‚œë‹¤. ì´ë¥¼ í•´ê²°í•˜ê³ ì ì¢€ë” ë¯¸ì„¸í•œ ì˜¤ì°¨ë¥¼ í•´ê²°í•˜ê¸° ìœ„í•´ ì“°ëŠ” ê°’
+	// KINDA_SMALL_NUMBER ì€ 0ì— ê°€ê¹Œì›€, floatê°’ì„ 0ê³¼ ë¹„êµí• ë•Œ 0ë³´ë‹¤ KINDA_SMALL_NUMBERì„ ì‚¬ìš©í•¨
 	if (CurrentStatData->NextExp <= KINDA_SMALL_NUMBER)
 	{
 		return 0.0f;
 	}
-	float Result = (float)Exp / (float)CurrentStatData->NextExp; // ÇöÀç °æÇèÄ¡ / ÇØ´ç ·¹º§¾÷ ÇÏ±âÀ§ÇÑ °æÇèÄ¡ ºñÀ²
+	float Result = (float)Exp / (float)CurrentStatData->NextExp; // í˜„ì¬ ê²½í—˜ì¹˜ / í•´ë‹¹ ë ˆë²¨ì—… í•˜ê¸°ìœ„í•œ ê²½í—˜ì¹˜ ë¹„ìœ¨
 	ABLOG(Warning, TEXT("Ratio : %f, Current : %d, Next : %d"), Result, Exp, CurrentStatData->NextExp);
 	return Result;
 }
@@ -86,6 +102,8 @@ bool AABPlayerState::AddExp(int32 IncomeExp)
 		DidLevelUp = true;
 	}
 	OnPlayerStateChanged.Broadcast();
+	//ê²½í—˜ì¹˜ ë³€ë™ì´ ìˆì„ë•Œ ë§ˆë‹¤ ì €ì¥ 557p ì¶”ê°€
+	SavePlayerData();
 	return DidLevelUp;
 }
 
@@ -93,12 +111,13 @@ void AABPlayerState::AddGameScore()
 {
 	GameScore++;
 	
-	// 15Àå 556p ÄÚµåÃß°¡
+	// 15ì¥ 556p ì½”ë“œì¶”ê°€
 	if(GameScore >= GameHighScore)
 	{
 		GameHighScore = GameScore;
 	}
-	//
+	//ê²½í—˜ì¹˜ ë³€ë™ì´ ìˆì„ë•Œ ë§ˆë‹¤ ì €ì¥ 557p ì¶”ê°€
+	SavePlayerData();
 	OnPlayerStateChanged.Broadcast();
 }
 

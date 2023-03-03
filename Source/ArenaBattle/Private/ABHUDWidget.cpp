@@ -1,4 +1,4 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+ï»¿// Fill out your copyright notice in the Description page of Project Settings.
 
 
 #include "ABHUDWidget.h"
@@ -14,7 +14,7 @@ void UABHUDWidget::BindCharacterStat(class UABCharacterStatComponent* CharacterS
 {
 	ABCHECK(nullptr != CharacterStat);
 	CurrentCharacterStat = CharacterStat;
-	// OnHPChanged´Â µ¨¸®°ÔÀÌÆ®ÀÌ¸ç µ¨¸®°ÔÀÌÆ® ¾È¿¡ UpdateCharacterStat ÇÔ¼ö¸¦ Æ÷ÇÔ½ÃÄÑ OnHpChanged¸¦ È£ÃâÇÏ¸é Æ÷ÇÔ½ÃÅ² UpdateCharacterStat ÇÔ¼ö ÀÛµ¿
+	// OnHPChangedëŠ” ë¸ë¦¬ê²Œì´íŠ¸ì´ë©° ë¸ë¦¬ê²Œì´íŠ¸ ì•ˆì— UpdateCharacterStat í•¨ìˆ˜ë¥¼ í¬í•¨ì‹œì¼œ OnHpChangedë¥¼ í˜¸ì¶œí•˜ë©´ í¬í•¨ì‹œí‚¨ UpdateCharacterStat í•¨ìˆ˜ ìž‘ë™
 	CharacterStat->OnHPChanged.AddUObject(this, &UABHUDWidget::UpdateCharacterStat); 
 }
 
@@ -22,7 +22,7 @@ void UABHUDWidget::BindPlayerState(AABPlayerState* PlayerState)
 {
 	ABCHECK(nullptr != PlayerState);
 	CurrentPlayerState = PlayerState;
-	// OnPlayerStateChanged´Â µ¨¸®°ÔÀÌÆ®ÀÌ¸ç µ¨¸®°ÔÀÌÆ® ¾È¿¡ UpdatePlayerState ÇÔ¼ö¸¦ Æ÷ÇÔ½ÃÄÑ OnPlayerStateChanged¸¦ È£ÃâÇÏ¸é Æ÷ÇÔ½ÃÅ² UpdatePlayerState ÇÔ¼ö ÀÛµ¿
+	// OnPlayerStateChangedëŠ” ë¸ë¦¬ê²Œì´íŠ¸ì´ë©° ë¸ë¦¬ê²Œì´íŠ¸ ì•ˆì— UpdatePlayerState í•¨ìˆ˜ë¥¼ í¬í•¨ì‹œì¼œ OnPlayerStateChangedë¥¼ í˜¸ì¶œí•˜ë©´ í¬í•¨ì‹œí‚¨ UpdatePlayerState í•¨ìˆ˜ ìž‘ë™
 	PlayerState->OnPlayerStateChanged.AddUObject(this, &UABHUDWidget::UpdatePlayerState);
 }
 
@@ -59,11 +59,13 @@ void UABHUDWidget::UpdatePlayerState()
 {
 	ABCHECK(CurrentPlayerState.IsValid());
 
-	// °æÇèÄ¡ ÀúÀå ¹× ·¹º§º¯È­ 534p
+	// ê²½í—˜ì¹˜ ì €ìž¥ ë° ë ˆë²¨ë³€í™” 534p
 	ExpBar->SetPercent(CurrentPlayerState->GetExpRatio());
 	//
 	PlayerName->SetText(FText::FromString(CurrentPlayerState->GetPlayerName()));
 	PlayerLevel->SetText(FText::FromString(FString::FromInt(CurrentPlayerState->GetCharacterLevel())));
 	CurrentScore->SetText(FText::FromString(FString::FromInt(CurrentPlayerState->GetGameScore())));
 
+	// 559p ì €ìž¥ëœ ë°ì´í„° HighScore ì¶œë ¥
+	HighScore->SetText(FText::FromString(FString::FromInt(CurrentPlayerState->GetGameHighScroe())));
 }

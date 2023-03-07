@@ -1,4 +1,4 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+﻿// Fill out your copyright notice in the Description page of Project Settings.
 
 
 #include "BTDecorator_IsInAttackRange.h"
@@ -16,7 +16,10 @@ bool UBTDecorator_IsInAttackRange::CalculateRawConditionValue(UBehaviorTreeCompo
 {
     bool bResult = Super::CalculateRawConditionValue(OwnerComp, NodeMemory);
 
-    auto ControllingPawn = OwnerComp.GetAIOwner()->GetPawn();
+    //562p 무기 속성 코드 추가 및 변경
+    // auto ControllingPawn = OwnerComp.GetAIOwner()->GetPawn();
+    auto ControllingPawn = Cast<AABCharacter>(OwnerComp.GetAIOwner()->GetPawn());
+
     if (nullptr == ControllingPawn)
         return false;
 
@@ -24,6 +27,8 @@ bool UBTDecorator_IsInAttackRange::CalculateRawConditionValue(UBehaviorTreeCompo
     if (nullptr == Target)
         return false;
 
-    bResult = (Target->GetDistanceTo(ControllingPawn) <= 200.0f);
+    //bResult = (Target->GetDistanceTo(ControllingPawn) <= 200.0f);
+    bResult = (Target->GetDistanceTo(ControllingPawn) <= ControllingPawn->GetFinalAttackRange());
+
     return bResult;
 }

@@ -1,4 +1,4 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+ï»¿// Fill out your copyright notice in the Description page of Project Settings.
 
 
 #include "ABWeapon.h"
@@ -9,7 +9,7 @@ AABWeapon::AABWeapon()
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = false;
 
-	// ¹«±â ÃÊ±â ¼³Á¤ (ÄÄÆ÷³ÍÆ® ¼³Á¤)
+	// ë¬´ê¸° ì´ˆê¸° ì„¤ì • (ì»´í¬ë„ŒíŠ¸ ì„¤ì •)
 	Weapon = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("WEAPON"));
 	RootComponent = Weapon;
 
@@ -18,8 +18,16 @@ AABWeapon::AABWeapon()
 	{
 		Weapon->SetSkeletalMesh(SK_WEAPON.Object);
 	}
-	// weapon ÀÇ Äİ¸®Àü ¼³Á¤À» noCollisionÀ¸·Î ¼³Á¤
+	// weapon ì˜ ì½œë¦¬ì „ ì„¤ì •ì„ noCollisionìœ¼ë¡œ ì„¤ì •
 	Weapon->SetCollisionProfileName(TEXT("NoCollision"));
+
+	//562p ë¬´ê¸° ì†ì„± ë¬´ê¸° ìˆìœ¼ë©´ ê³µê²©ë²”ìœ„ 80 ì—†ìœ¼ë©´ 150
+	AttackRange = 150.0f;
+}
+
+float AABWeapon::GetAttackRange() const
+{
+	return AttackRange;
 }
 
 // Called when the game starts or when spawned

@@ -1,4 +1,4 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+ï»¿// Fill out your copyright notice in the Description page of Project Settings.
 
 #pragma once
 
@@ -8,7 +8,7 @@
 #include "GameFramework/Character.h"
 #include "ABCharacter.generated.h"
 
-// °ø°İÀ» ³¡³»¾î ÅÂ½ºÅ© Á¾·á ¾Ë¸®´Â µ¨¸®°ÔÀÌÆ® 443p
+// ê³µê²©ì„ ëë‚´ì–´ íƒœìŠ¤í¬ ì¢…ë£Œ ì•Œë¦¬ëŠ” ë¸ë¦¬ê²Œì´íŠ¸ 443p
 DECLARE_MULTICAST_DELEGATE(FOnAttackEndDelegate);
 
 
@@ -21,22 +21,25 @@ public:
 	// Sets default values for this character's properties
 	AABCharacter();
 
-	// ½ºÅ×ÀÌÆ® ¸Ó½Å ¸ğµ¨·Î °ÔÀÓ ÁøÇà´Ü°è ±¸ºĞ 501p
+	// ìŠ¤í…Œì´íŠ¸ ë¨¸ì‹  ëª¨ë¸ë¡œ ê²Œì„ ì§„í–‰ë‹¨ê³„ êµ¬ë¶„ 501p
 	void SetCharacterState(ECharacterState NewState);
 	ECharacterState GetCharacterState() const;
-	// °æÇèÄ¡ ÀúÀå ¹× ·¹º§º¯È­ 532p
+	// ê²½í—˜ì¹˜ ì €ì¥ ë° ë ˆë²¨ë³€í™” 532p
 	int32 GetExp() const;
+
+	//562p ë¬´ê¸° ì†ì„±
+	float GetFinalAttackRange() const;
 
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 	
-	//GTA Ã³·³ ½ÃÁ¡À» Á¶ÀÛÀ» °¡´ÉÇÏ°Ô ÇÏ°Å³ª ¾Æ´Ï¸é µğ¾Æºí·Î Ã³·³ ½ÃÁ¡Àº °íÁ¤ ¼³Á¤ ¼±ÅÃ
+	//GTA ì²˜ëŸ¼ ì‹œì ì„ ì¡°ì‘ì„ ê°€ëŠ¥í•˜ê²Œ í•˜ê±°ë‚˜ ì•„ë‹ˆë©´ ë””ì•„ë¸”ë¡œ ì²˜ëŸ¼ ì‹œì ì€ ê³ ì • ì„¤ì • ì„ íƒ
 	enum class EControlMode
 	{
 		GTA,
 		DIABLO,
-		// NPCÀÏ°æ¿ì
+		// NPCì¼ê²½ìš°
 		NPC
 	};
 	//void SetControlMode(int32 ControlMode);
@@ -52,44 +55,44 @@ protected:
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
-	// µ¨¸®°ÔÀÌÆ® ¼³Á¤À» À§ÇÑ ÄÄÆ÷³ÍÆ®
+	// ë¸ë¦¬ê²Œì´íŠ¸ ì„¤ì •ì„ ìœ„í•œ ì»´í¬ë„ŒíŠ¸
 	virtual void PostInitializeComponents() override;
-	// ´ë¹ÌÁö Ã³¸®
+	// ëŒ€ë¯¸ì§€ ì²˜ë¦¬
 	virtual float TakeDamage(float DamageAmount, struct FDamageEvent const& DamageEvent, class AController* EventInstigator, AActor* DamageCauser) override;
-	// NPC ÀÏ °æ¿ì ¼Óµµ ¹× È¸Àü¼Óµµ Á¶Àı
+	// NPC ì¼ ê²½ìš° ì†ë„ ë° íšŒì „ì†ë„ ì¡°ì ˆ
 	virtual void PossessedBy(AController* NewController) override;
 
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
-	// Ä³¸¯ÅÍ¿Í Ä«¸Ş¶óÀÇ À§Ä¡ °è»ê ÇØÁÖ´Â SpringArm
+	// ìºë¦­í„°ì™€ ì¹´ë©”ë¼ì˜ ìœ„ì¹˜ ê³„ì‚° í•´ì£¼ëŠ” SpringArm
 	UPROPERTY(VisibleAnyWhere, Category = Camera)
 	USpringArmComponent* SpringArm;
 
 	UPROPERTY(VisibleAnyWhere, Category = Camera)
 	UCameraComponent* Camera;
 
-	// Ä³¸¯ÅÍ ¹«±â ÀåÂø ¸ğµ¨ 
+	// ìºë¦­í„° ë¬´ê¸° ì¥ì°© ëª¨ë¸ 
 	UPROPERTY(VisibleAnyWhere, Category = Weapon)
 	USkeletalMeshComponent* Weapon;
-	//¾ÆÀÌÅÛ ½Àµæ½Ã ¹«±âº¯°æ
+	//ì•„ì´í…œ ìŠµë“ì‹œ ë¬´ê¸°ë³€ê²½
 	bool CanSetWeapon();
 	void SetWeapon(class AABWeapon* NewWeapon);
 	UPROPERTY(VisibleAnyWhere, Category = Weapon)
 	class AABWeapon* CurrentWeapon;
 
-	// 11Àå °ÔÀÓ µ¥ÀÌÅÍ Å×ÀÌºí( °¢Á¾ ½ºÅÈµ¥ÀÌÅÍ ) ¼³Á¤
+	// 11ì¥ ê²Œì„ ë°ì´í„° í…Œì´ë¸”( ê°ì¢… ìŠ¤íƒ¯ë°ì´í„° ) ì„¤ì •
 
 	UPROPERTY(VisibleAnywhere, Category = Stat)
 	class UABCharacterStatComponent* CharacterStat;
 
-	// UI Ã¼·Â¹Ù
+	// UI ì²´ë ¥ë°”
 	UPROPERTY(VisibleAnywhere, Category = UI)
 	class UWidgetComponent* HPBarWidget;
 
-	// °ø°İ Á¾·á ÇÔ¼ö ¹× µ¨¸®°ÔÀÌÆ®
-	void Attack();  //AttackÇÔ¼ö publicÀ¸·Î ¿Å±è
-	FOnAttackEndDelegate OnAttackEnd; //µ¨¸®°ÔÀÌÆ® º¯¼ö ¼±¾ğ
+	// ê³µê²© ì¢…ë£Œ í•¨ìˆ˜ ë° ë¸ë¦¬ê²Œì´íŠ¸
+	void Attack();  //Attackí•¨ìˆ˜ publicìœ¼ë¡œ ì˜®ê¹€
+	FOnAttackEndDelegate OnAttackEnd; //ë¸ë¦¬ê²Œì´íŠ¸ ë³€ìˆ˜ ì„ ì–¸
 
 
 private:
@@ -101,34 +104,34 @@ private:
 	void ViewChange();
 	//void Attack();
 	
-	// https://hyo-ue4study.tistory.com/287 µ¨¸®°ÔÀÌÆ® Âü°í »çÀÌÆ®
-	// OnAttackMentageEnded ¸¦ µ¨¸®°ÔÀÌÆ®·Î µî¸¤ÇØ ¸ùÅ¸ÁÖ Àç»ıÀÌ ³¡³ª´Â ½ÃÁ¡À» ÆÄ¾ÇÇÒ ¼ö ÀÖµµ·Ï ÇÑ´Ù.
-	// UABAnumInstance¾ÈÀÇ OnMontageEnded¿¡ ¹ÙÀÎµùÇÒ ÇÔ¼ö
-	// UFUNCTION() ¸ÅÅ©·Î¸¦ Ãß°¡ÇØ OnAttack... µ¨¸®°ÔÀÌÆ®´Â ºí·çÇÁ¸°Æ®ÀÇ ÇÔ¼ö¿Í ¿¬µ¿ÇÒ ¼ö ÀÖµµ·Ï ¼³°è (ºí·çÇÁ¸°Æ®
+	// https://hyo-ue4study.tistory.com/287 ë¸ë¦¬ê²Œì´íŠ¸ ì°¸ê³  ì‚¬ì´íŠ¸
+	// OnAttackMentageEnded ë¥¼ ë¸ë¦¬ê²Œì´íŠ¸ë¡œ ë“±ë¥µí•´ ëª½íƒ€ì£¼ ì¬ìƒì´ ëë‚˜ëŠ” ì‹œì ì„ íŒŒì•…í•  ìˆ˜ ìˆë„ë¡ í•œë‹¤.
+	// UABAnumInstanceì•ˆì˜ OnMontageEndedì— ë°”ì¸ë”©í•  í•¨ìˆ˜
+	// UFUNCTION() ë§¤í¬ë¡œë¥¼ ì¶”ê°€í•´ OnAttack... ë¸ë¦¬ê²Œì´íŠ¸ëŠ” ë¸”ë£¨í”„ë¦°íŠ¸ì˜ í•¨ìˆ˜ì™€ ì—°ë™í•  ìˆ˜ ìˆë„ë¡ ì„¤ê³„ (ë¸”ë£¨í”„ë¦°íŠ¸
 	UFUNCTION()
 	void OnAttackMentageEnded(UAnimMontage* Montage, bool BInterrupted);
 
-	// ³ëÆ¼ÆÄÀÌ ¸ğ¼Ç °ø°İ ¸ğ¼Ç ²÷¾î³õÀº°Å ¿¬°á
+	// ë…¸í‹°íŒŒì´ ëª¨ì…˜ ê³µê²© ëª¨ì…˜ ëŠì–´ë†“ì€ê±° ì—°ê²°
 	void AttackStartComboState();
 	void AttackEndComboState();
-	// Ãæµ¹¼³Á¤ (Äİ¸®Àü)
+	// ì¶©ëŒì„¤ì • (ì½œë¦¬ì „)
 	void AttackCheck();
 
-	// 13Àå 468p Ä³¸¯ÅÍ ¿ÜÇü ini ·ÎµåÇÑ°Å ·£´ıÀ¸·Î °¡Á®¿À±â
+	// 13ì¥ 468p ìºë¦­í„° ì™¸í˜• ini ë¡œë“œí•œê±° ëœë¤ìœ¼ë¡œ ê°€ì ¸ì˜¤ê¸°
 	void OnAssetLoadCompleted();
 
 private:
 	UPROPERTY(VisibleInstanceOnly, BlueprintReadOnly, Category = Attack, Meta = (AllowPrivateAccess = true))
 	bool IsAttacking;
 
-	// ¿©·¯°÷¿¡¼­ ¾²ÀÌ´Â AnimInstance¸¦ Å¬·¡½ºº¯¼öÈ­ ÇÏ¿© ¾î´À ÇÔ¼ö¿¡¼­µç »ç¿ë°¡´ÉÇÏ°Ô Á¦ÀÛÇÒ º¯¼ö
+	// ì—¬ëŸ¬ê³³ì—ì„œ ì“°ì´ëŠ” AnimInstanceë¥¼ í´ë˜ìŠ¤ë³€ìˆ˜í™” í•˜ì—¬ ì–´ëŠ í•¨ìˆ˜ì—ì„œë“  ì‚¬ìš©ê°€ëŠ¥í•˜ê²Œ ì œì‘í•  ë³€ìˆ˜
 	UPROPERTY()
 	class UABAnimInstance* ABAnim;
 
-	// ½ºÅ×ÀÌÆ® ¸Ó½Å ¸ğµ¨·Î °ÔÀÓ ÁøÇà´Ü°è 14Àå ±¸ºĞ 501p 
+	// ìŠ¤í…Œì´íŠ¸ ë¨¸ì‹  ëª¨ë¸ë¡œ ê²Œì„ ì§„í–‰ë‹¨ê³„ 14ì¥ êµ¬ë¶„ 501p 
 	int32 AssetIndex = 0;
 
-	// ³ëÆ¼ÆÄÀÌ ¸ğ¼Ç °ø°İ ¸ğ¼Ç ²÷¾î³õÀº°Å ¿¬°á
+	// ë…¸í‹°íŒŒì´ ëª¨ì…˜ ê³µê²© ëª¨ì…˜ ëŠì–´ë†“ì€ê±° ì—°ê²°
 
 	UPROPERTY(VisibleInstanceOnly, BluePrintReadOnly, Category = Attack, Meta = (AllowPrivateAccess = true))
 	bool CanNextCombo;
@@ -145,11 +148,11 @@ private:
 	UPROPERTY(VisibleInstanceOnly, BluePrintReadOnly, Category = Attack, Meta = (AllowPrivateAccess = true))
 	float AttackRadius;
 
-	// 13Àå 468p
+	// 13ì¥ 468p
 	FSoftObjectPath CharacterAssetToLoad = FSoftObjectPath(nullptr);
 	TSharedPtr<struct FStreamableHandle> AssetStreamingHandle;
 
-	// ½ºÅ×ÀÌÆ® ¸Ó½Å ¸ğµ¨·Î °ÔÀÓ ÁøÇà´Ü°è 14Àå ±¸ºĞ 501p 
+	// ìŠ¤í…Œì´íŠ¸ ë¨¸ì‹  ëª¨ë¸ë¡œ ê²Œì„ ì§„í–‰ë‹¨ê³„ 14ì¥ êµ¬ë¶„ 501p 
 	UPROPERTY(Transient, VisibleInstanceOnly, BlueprintReadOnly, Category = State, Meta = (AllowPrivateAccess = true))
 	ECharacterState CurrentState;
 
@@ -163,7 +166,7 @@ private:
 	class AABPlayerController* ABPlayerController;
 
 
-	// 14Àå 512p
+	// 14ì¥ 512p
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = State, Meta = (AllowPrivateAccess = true))
 	float DeadTimer;
 

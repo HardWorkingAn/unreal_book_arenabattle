@@ -1,4 +1,4 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+ï»¿// Fill out your copyright notice in the Description page of Project Settings.
 
 #pragma once
 
@@ -17,6 +17,9 @@ public:
 	// Sets default values for this actor's properties
 	AABWeapon();
 
+	//562p ë¬´ê¸° ì†ì„±
+	float GetAttackRange() const;
+
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
@@ -26,7 +29,12 @@ public:
 	virtual void Tick(float DeltaTime) override;
 
 public:
-	// ¹«±â ½ºÄÌ·¹Åæ »ı¼º ( ÀÌÈÄ ½ºÄÌ·¹Åæ À¯ÁöÇÏ¸é¼­ ¸ğµ¨¸µ¸¸ º¯°æÇÏ¿© ¹«±âº¯°æ)
+	// ë¬´ê¸° ìŠ¤ì¼ˆë ˆí†¤ ìƒì„± ( ì´í›„ ìŠ¤ì¼ˆë ˆí†¤ ìœ ì§€í•˜ë©´ì„œ ëª¨ë¸ë§ë§Œ ë³€ê²½í•˜ì—¬ ë¬´ê¸°ë³€ê²½)
 	UPROPERTY(VisibleAnywhere, Category = Weapon)
 	USkeletalMeshComponent* Weapon;
+
+	//562p ë¬´ê¸° ì†ì„±
+protected:
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Attack)
+	float AttackRange;
 };

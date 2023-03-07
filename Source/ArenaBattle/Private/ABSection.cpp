@@ -42,6 +42,11 @@ AABSection::AABSection()
 	Trigger->SetRelativeLocation(FVector(0.0f, 0.0f, 0.0f));
 	Trigger->SetCollisionProfileName(TEXT("ABTrigger"));
 
+	// 새로운 맵 생성된후 입장하면 그 맵은 State는 READY 상태에서 입장 트리거 발동되면 
+	// BATTLE 상태로 변경되어 잠시동안 콜리전을 NoCollision으로 변경하여 트리거 작동 안되게 변경
+	// 소환된 AI가 죽어 OnKeyNPCDestroyed() 함수가 작동되면 해당 맵 Actor 는 COMPLETE가 되어
+	// Trigger는 NoColision 그대로 유지하고 GateTrigger만 콜리전을 ABTrigger 콜리전으로 변경하여
+	// 맵이동 가능.
 	Trigger->OnComponentBeginOverlap.AddDynamic(this, &AABSection::OnTriggerBeginOverlap);
 
 	FString GateAssetPath = TEXT("/Game/Book/StaticMesh/SM_GATE.SM_GATE");
@@ -68,7 +73,8 @@ AABSection::AABSection()
 		NewGateTrigger->SetRelativeLocation(FVector(70.0f, 0.0f, 250.0f));
 		NewGateTrigger->SetCollisionProfileName(TEXT("ABTrigger"));
 		GateTriggers.Add(NewGateTrigger);
-
+		// 문에 있는 투명 Box Component 와 캐릭터와 충돌하면 OnComponentBeginOverlap 호출
+		// 해당 위치에 맵 Actor 있는지 확인후 없으면 새로운 맵 Actor 생성
 		NewGateTrigger->OnComponentBeginOverlap.AddDynamic(this, &AABSection::OnGateTriggerBeginOverlap);
 		NewGateTrigger->ComponentTags.Add(GateSocket);
 		// 개인확인용 추가
@@ -133,6 +139,7 @@ void AABSection::SetState(ESectionState NewState)
 	}
 	case ESectionState::COMPLETE:
 	{
+		// 해당 맵을 클리어 하면 맵 Actor는 NoCollision으로 변경하여 작동 안되게 변경
 		Trigger->SetCollisionProfileName(TEXT("NoCollision"));
 		for (UBoxComponent* GateTrigger : GateTriggers)
 		{
@@ -147,9 +154,10 @@ void AABSection::SetState(ESectionState NewState)
 	CurrentState = NewState;
 }
 
+// 게이트 각도 변경 -90 은 열린상태 ZeroRotator은 닫힌상태
 void AABSection::OperateGates(bool bOpen)
 {
-	UE_LOG(LogTemp, Warning, TEXT("OperateGates"));
+	UE_LOG(LogTemp, Warning, TEXT("OperateGates(게이트 각도 변경)"));
 	for (UStaticMeshComponent* Gate : GateMeshes)
 	{
 		Gate->SetRelativeRotation(bOpen ? FRotator(0.0f, -90.0f, 0.0f) : FRotator::ZeroRotator);
@@ -179,22 +187,30 @@ void AABSection::OnGateTriggerBeginOverlap(UPrimitiveComponent* OverlappedCompon
 	UE_LOG(LogTemp, Warning, TEXT("OnGateTriggerBeginOverlap"));
 	ABCHECK(OverlappedComponent->ComponentTags.Num() == 1);
 
+	// 생성자에서 각 투명 Component 에는 소켓 이름으로 Tag를 저장했음
 	FName ComponentTag = OverlappedComponent->ComponentTags[0];
+	// 닿은 Component의 +XGate +YGate 이렇게 저장된 이름에서 왼쪽 2개만 가져와 +X +Y같은 값을 가지게됨
 	FName SocketName = FName(*ComponentTag.ToString().Left(2));
 	if (!Mesh->DoesSocketExist(SocketName))
 		return;
+	
+	// 맵에 잘보면 +X +Y -X -Y 소켓이 따로있으며 이 소켓은 중앙에서 각 -1852 1852 같은 값을 가지고 있다.
+	// 하지만 소켓의 좌표값은 상대적이기 떄문에
+	// x -1852 y 0 z 0 위치해 있는 Actor에서 -x의 소켓 위치는 -1852 - 1852 인 -3704 위치를 가지게 된다.
 	FVector NewLocation = Mesh->GetSocketLocation(SocketName);
 
 	TArray<FOverlapResult> OverlapResults;
+	// 검사에서 제외될 Actor 목록
 	FCollisionQueryParams CollisionQueryParam(NAME_None, false, this);
 	FCollisionObjectQueryParams ObjectQueryParam(FCollisionObjectQueryParams::InitType::AllObjects);
+
 	bool bResult = GetWorld()->OverlapMultiByObjectType(
-		OverlapResults,
-		NewLocation,
-		FQuat::Identity,
-		ObjectQueryParam,
-		FCollisionShape::MakeSphere(775.0f),
-		CollisionQueryParam
+		OverlapResults, // 만약 충돌한다면 충돌한 actor를 overlapResults 에 저장
+		NewLocation, // 상대적 소켓위치
+		FQuat::Identity, // 충돌 검사 당하는 액터를 전부 회전값 0으로 보고 검사
+		ObjectQueryParam, // 충돌하는 오브젝트 타입은 전부
+		FCollisionShape::MakeSphere(775.0f), // 반지름 775인 원 생성후 충돌검사
+		CollisionQueryParam // 검사에서 제외될 Actor 목록
 	);
 
 	if (!bResult)

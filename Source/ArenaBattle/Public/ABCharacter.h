@@ -29,6 +29,9 @@ public:
 
 	//562p 무기 속성
 	float GetFinalAttackRange() const;
+	//567p 무기 공격 대미지 속성
+	float GetFinalAttackDamage() const;
+
 
 protected:
 	// Called when the game starts or when spawned

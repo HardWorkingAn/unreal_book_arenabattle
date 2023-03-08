@@ -23,6 +23,12 @@ AABWeapon::AABWeapon()
 
 	//562p 무기 속성 무기 있으면 공격범위 80 없으면 150
 	AttackRange = 150.0f;
+	//567p 무기 공격 대미지 속성
+	AttackDamageMin = -2.5f;
+	AttackDamageMax = 10.0f;
+	AttackModifierMin = 0.85f;
+	AttackModifierMax = 1.25f;
+
 }
 
 float AABWeapon::GetAttackRange() const
@@ -30,11 +36,26 @@ float AABWeapon::GetAttackRange() const
 	return AttackRange;
 }
 
+float AABWeapon::GetAttackDamage() const
+{
+	return AttackDamage;
+}
+
+float AABWeapon::GetAttackModifier() const
+{
+	return AttackModifier;
+}
+
 // Called when the game starts or when spawned
 void AABWeapon::BeginPlay()
 {
 	Super::BeginPlay();
 	
+	//567p 무기 공격 대미지 속성
+	AttackDamage = FMath::RandRange(AttackDamageMin, AttackDamageMax);
+	AttackModifier = FMath::RandRange(AttackModifierMin, AttackModifierMax);
+
+	ABLOG(Warning, TEXT("Weapon Damage : %f, Modifier : %f"), AttackDamage, AttackModifier);
 }
 
 // Called every frame

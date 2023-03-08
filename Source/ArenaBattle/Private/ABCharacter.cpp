@@ -270,6 +270,15 @@ float AABCharacter::GetFinalAttackRange() const
 	return (nullptr != CurrentWeapon) ? CurrentWeapon->GetAttackRange() : AttackRange;
 }
 
+float AABCharacter::GetFinalAttackDamage() const
+{
+	float AttackDamage = (nullptr != CurrentWeapon) ?
+		(CharacterStat->GetAttack() + CurrentWeapon->GetAttackDamage()) : CharacterStat->GetAttack();
+	float AttackModifier = (nullptr != CurrentWeapon) ?
+		CurrentWeapon->GetAttackModifier() : 1.0f;
+	return AttackDamage * AttackModifier;
+}
+
 
 // Called when the game starts or when spawned
 void AABCharacter::BeginPlay()
@@ -747,7 +756,9 @@ void AABCharacter::AttackCheck()
 		
 		FDamageEvent DamageEvent;
 		//HitResult.Actor->TakeDamage(50.0f, DamageEvent, GetController(), this);
-		HitResult.Actor->TakeDamage(CharacterStat->GetAttack(), DamageEvent, GetController(), this);
+		//567p 무기 공격 대미지 속성 값 수정
+		HitResult.Actor->TakeDamage(GetFinalAttackDamage()/*CharacterStat->GetAttack()*/,
+			DamageEvent, GetController(), this);
 	}
 
 

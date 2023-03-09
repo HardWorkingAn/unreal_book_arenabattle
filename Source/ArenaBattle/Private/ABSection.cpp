@@ -251,7 +251,7 @@ void AABSection::OnKeyNPCDestroyed(AActor* DestroyedActor)
 	auto ABPlayerController = Cast<AABPlayerController>(ABCharacter->LastHitBy);
 	ABCHECK(nullptr != ABPlayerController);
 	//549p 추가
-	// GetAuthGameMode : 현재 실행 중인 서버에서 사용 중인 게임 모드 클래스를 반환하는 함수입니다.
+	// GetAuthGameMode : 현재 실행 중인 서버에서 사용 중인 게임 모드 클래스를 반환하는 함수
 	auto ABGameMode = Cast<AABGameMode>(GetWorld()->GetAuthGameMode());
 	ABCHECK(nullptr != ABGameMode);
 	ABGameMode->AddScore(ABPlayerController);

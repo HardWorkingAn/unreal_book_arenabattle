@@ -1,30 +1,30 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+ï»¿// Fill out your copyright notice in the Description page of Project Settings.
 
 #pragma once
 
 #include "ArenaBattle.h"
 
-#include "Engine/DataTable.h" // FTableRowBase ¸¦ °¡Áö°í ÀÖ´Â ÇØ´õÆÄÀÏ
+#include "Engine/DataTable.h" // FTableRowBase ë¥¼ ê°€ì§€ê³  ìˆëŠ” í•´ë”íŒŒì¼
 #include "CoreMinimal.h"
 #include "Engine/GameInstance.h"
 
-// 13Àå INI ÆÄÀÏ °¡Á®¿Â°Å npc ·£´ıÀ¸·Î  467p 
+// 13ì¥ INI íŒŒì¼ ê°€ì ¸ì˜¨ê±° npc ëœë¤ìœ¼ë¡œ  467p 
 #include "Engine/StreamableManager.h"
 
 #include "ABGameInstance.generated.h"
 
 
 
-// GameInstance´Â °ÔÀÓÀÌ ½ÃÀÛÇÒ ¶§ ¸¸µé¾îÁ®¼­ °ÔÀÓÀÌ Á¾·áµÉ ¶§ ±îÁö ÇÁ·Î±×·¥ »ó¿¡ Á¸Àç
-// ÇÁ·Î±×·¥ÀÌ Á¾·áµÉ¶§ ±îÁö »ì¾ÆÀÖ´Â °ÔÀÓ ÀÎ½ºÅÏ½º ¾È¿¡ Áß¿äÇÑ µ¥ÀÌÅÍµéÀ» ÀúÀåÇÏ°í, ¶Ç ±×°ÍÀ» ²¨³»¼­ »ç¿ëÇÏ´Â ·ÎÁ÷À» ÁÖ·Î »ç¿ë
-// csv¸¦ ÀĞ±â À§ÇÑ FTableRowBase ¸¦ »ó¼Ó¹Ş´Â ±¸Á¶Ã¼ »ı¼º
+// GameInstanceëŠ” ê²Œì„ì´ ì‹œì‘í•  ë•Œ ë§Œë“¤ì–´ì ¸ì„œ ê²Œì„ì´ ì¢…ë£Œë  ë•Œ ê¹Œì§€ í”„ë¡œê·¸ë¨ ìƒì— ì¡´ì¬
+// í”„ë¡œê·¸ë¨ì´ ì¢…ë£Œë ë•Œ ê¹Œì§€ ì‚´ì•„ìˆëŠ” ê²Œì„ ì¸ìŠ¤í„´ìŠ¤ ì•ˆì— ì¤‘ìš”í•œ ë°ì´í„°ë“¤ì„ ì €ì¥í•˜ê³ , ë˜ ê·¸ê²ƒì„ êº¼ë‚´ì„œ ì‚¬ìš©í•˜ëŠ” ë¡œì§ì„ ì£¼ë¡œ ì‚¬ìš©
+// csvë¥¼ ì½ê¸° ìœ„í•œ FTableRowBase ë¥¼ ìƒì†ë°›ëŠ” êµ¬ì¡°ì²´ ìƒì„±
 USTRUCT(BlueprintType)
 struct FABCharacterData : public FTableRowBase
 {
 	GENERATED_BODY()
 
 public:
-	FABCharacterData() : Level(1), MaxHP(100.0f), Attack(10.0f), DropExp(10), NextExp(30) {} //ÃÊ±â°ª ¼³Á¤
+	FABCharacterData() : Level(1), MaxHP(100.0f), Attack(10.0f), DropExp(10), NextExp(30) {} //ì´ˆê¸°ê°’ ì„¤ì •
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Data")
 	int32 Level;
 
@@ -59,6 +59,8 @@ public:
 
 	// 468p
 	FStreamableManager StreamableManager;
+
+
 
 private:
 	UPROPERTY()

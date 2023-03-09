@@ -1,10 +1,10 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+ï»¿// Fill out your copyright notice in the Description page of Project Settings.
 
 
 #include "ABGameInstance.h"
 
-// Ä³¸¯ÅÍ µ¥ÀÌÅÍ csv ¸¦ °¡Á®¿Í ÀúÀå
-// Á¤È®ÇÑ ¼³¸íÀº ÇØ´õÂüÁ¶
+// ìºë¦­í„° ë°ì´í„° csv ë¥¼ ê°€ì ¸ì™€ ì €ì¥
+// ì •í™•í•œ ì„¤ëª…ì€ í•´ë”ì°¸ì¡°
 
 UABGameInstance::UABGameInstance()
 {

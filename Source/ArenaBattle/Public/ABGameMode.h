@@ -1,4 +1,4 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+ï»¿// Fill out your copyright notice in the Description page of Project Settings.
 
 #pragma once
 
@@ -20,11 +20,14 @@ public:
 	// 547p
 	virtual void PostInitializeComponents() override;
 	
-	// ¾ğ¸®¾ó ¿£Áø¿¡¼­ ÇÃ·¹ÀÌ¾î°¡ °ÔÀÓ¿¡ ÀÔÀåÇÏ´Â°ÍÀ» ·Î±×ÀÎÀÌ¶ó ÇÏ¸ç ·Î±×ÀÎ °úÁ¤¿¡¼­ ÇÃ·¹ÀÌ¾î¿¡°Ô ÇÒ´çµÈ ÇÃ·¹ÀÌ¾î ÄÁÆ®·ê·¯°¡ »ı¼º
+	// ì–¸ë¦¬ì–¼ ì—”ì§„ì—ì„œ í”Œë ˆì´ì–´ê°€ ê²Œì„ì— ì…ì¥í•˜ëŠ”ê²ƒì„ ë¡œê·¸ì¸ì´ë¼ í•˜ë©° ë¡œê·¸ì¸ ê³¼ì •ì—ì„œ í”Œë ˆì´ì–´ì—ê²Œ í• ë‹¹ëœ í”Œë ˆì´ì–´ ì»¨íŠ¸ë£°ëŸ¬ê°€ ìƒì„±
 	virtual void PostLogin(APlayerController* NewPlayer) override;
 
 	// 547p
 	void AddScore(class AABPlayerController *ScoredPlayer);
+
+	// 15ì¥ ìŠ¤ì½”ì–´ ê¸°ë°˜ AIë ˆë²¨ ì„¤ì •
+	int32 GetScore() const;
 
 private:
 	UPROPERTY()

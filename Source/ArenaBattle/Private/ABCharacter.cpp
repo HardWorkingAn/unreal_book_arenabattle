@@ -31,6 +31,8 @@
 // 플레이어 데이터(정보)와 UI연동하기 위한 해더 ex) 게임점수 , 이름(닉네임), 레벨
 #include "ABPlayerState.h"
 #include "ABHUDWidget.h"
+// 15장 스코어 기반 AI레벨 설정
+#include "ABGameMode.h"
 
 // 캐릭터 오브젝트 -> 액터 -> 폰 -> 캐릭터 순으로 상속함  오브젝트가 Root부모
 // 캐릭터는 APawn에서 좀 더 복잡한 애니메이션을 위해 파생된 클래스라고한다. 
@@ -186,7 +188,19 @@ void AABCharacter::SetCharacterState(ECharacterState NewState)
 			ABCHECK(nullptr != ABPlayerState);
 			CharacterStat->SetNewLevel(ABPlayerState->GetCharacterLevel());
 		}
-
+		// 15장 스코어 기반 AI레벨 설정 코드추가
+		else
+		{
+			// GetAuthGameMode : 현재 실행 중인 서버에서 사용 중인 게임 모드 클래스를 반환하는 함수
+			auto ABGameMode = Cast<AABGameMode>(GetWorld()->GetAuthGameMode());
+			ABCHECK(nullptr != ABGameMode);
+			int32 TargetLevel = FMath::CeilToInt(((float)ABGameMode->GetScore() * 0.8f));
+			int32 FinalLevel = FMath::Clamp<int32>(TargetLevel, 1, 20);
+			ABLOG(Warning, TEXT("New NPC Level : %d"), FinalLevel);
+			CharacterStat->SetNewLevel(FinalLevel);
+		}
+		//
+		
 		SetActorHiddenInGame(true);
 		HPBarWidget->SetHiddenInGame(true);
 		SetCanBeDamaged(false);
@@ -322,6 +336,9 @@ void AABCharacter::BeginPlay()
 		}
 	}
 	*/
+
+	// 현재 액터가 플레이어에 의해 제어되는지 여부를 확인
+	// 플레이어가 조종하면 true 아니면 false
 	bIsPlayer = IsPlayerControlled();
 	if (bIsPlayer)
 	{

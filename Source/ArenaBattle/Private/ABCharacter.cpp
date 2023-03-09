@@ -218,7 +218,9 @@ void AABCharacter::SetCharacterState(ECharacterState NewState)
 
 		auto CharacterWidget = Cast<UABCharacterWidget>(HPBarWidget->GetUserWidgetObject());
 		ABCHECK(CharacterWidget != nullptr);
-		CharacterWidget->BindCharacterStat(CharacterStat);
+		// 로그 출력 2번 되기 떄문에 주석처리 321번쨰줄 Begin에서 이미 BInd 해주었기 떄문에
+		// 굳이 여기서 해줄 필요가 없다.
+		//CharacterWidget->BindCharacterStat(CharacterStat);
 
 		if (bIsPlayer)
 		{

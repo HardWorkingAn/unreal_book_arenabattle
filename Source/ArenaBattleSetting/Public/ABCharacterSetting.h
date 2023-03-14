@@ -14,6 +14,8 @@
  */
  // 언리얼에 기본값인 INI파일 불러들일려면 UCLASS에 config 키워드를 추가해 여기에 불러들일 INI파일 이름을 지정하고 
  // 불러들일 PROPERTY 속성에 config 키워드를 선언해야한다.
+
+UCLASS(config=ArenaBattle)
 class ARENABATTLESETTING_API UABCharacterSetting : public UObject
 {
 	GENERATED_BODY()

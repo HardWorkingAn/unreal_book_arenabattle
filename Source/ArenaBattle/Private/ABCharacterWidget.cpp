@@ -3,10 +3,10 @@
 
 #include "ABCharacterWidget.h"
 
-// statÀÇ ÇöÁ¦ HP Á¤º¸¸¦ °¡Á®¿À±â À§ÇÑ include
+// statì˜ í˜„ì œ HP ì •ë³´ë¥¼ ê°€ì ¸ì˜¤ê¸° ìœ„í•œ include
 #include "ABCharacterStatComponent.h"
 
-// progressbar ¾÷µ¥ÀÌÆ®¸¦ À§ÇÑ ÇØ´õÆÄÀÏ
+// progressbar ì—…ë°ì´íŠ¸ë¥¼ ìœ„í•œ í•´ë”íŒŒì¼
 #include "Components/ProgressBar.h"
 
 void UABCharacterWidget::BindCharacterStat(class UABCharacterStatComponent* NewCharacterStat)
@@ -15,14 +15,14 @@ void UABCharacterWidget::BindCharacterStat(class UABCharacterStatComponent* NewC
 
 	CurrentCharacterStat = NewCharacterStat;
 	NewCharacterStat->OnHPChanged.AddLambda([this]() -> void {
-		
+
 		if (CurrentCharacterStat.IsValid())
 		{
 			ABLOG(Warning, TEXT("HPRatio : %f"), CurrentCharacterStat->GetHPRatio());
 		}
 
 		});
-	NewCharacterStat->OnHPChanged.AddUObject(this, &UABCharacterWidget::UpdateHPWidget); // ¾÷µ¥ÀÌÆ® ÇÔ¼ö ¹ÙÀÎµù
+	NewCharacterStat->OnHPChanged.AddUObject(this, &UABCharacterWidget::UpdateHPWidget); // ì—…ë°ì´íŠ¸ í•¨ìˆ˜ ë°”ì¸ë”©
 }
 
 void UABCharacterWidget::NativeConstruct()
@@ -35,8 +35,8 @@ void UABCharacterWidget::NativeConstruct()
 
 void UABCharacterWidget::UpdateHPWidget()
 {
-	// IsValid´Â °¡ºñÁö Äİ·ºÅÍÀÇ Á¦°Å ´ë»ó ¿µ¿ªÀÎ °÷¿¡ ¾ø°Å³ª nullptrÀÌ ¾Æ´Ñ °æ¿ì true¸¦ ¹İÈ¯
-	// À¯È¿ÇÏ´Ù : IsValid´Â °¡ºñÁö Äİ·ºÅÍÀÇ Á¦°Å ´ë»ó ¿µ¿ªÀÎ °÷¿¡ ¾ø°Å³ª nullptrÀÌ ¾Æ´Ñ °æ¿ì true¸¦ ¹İÈ¯ÇØ¿ë ÀÌ¶§¸¦ À¯È¿ÇÏ´Ù°í ÇÑ´Ù.
+	// IsValidëŠ” ê°€ë¹„ì§€ ì½œë ‰í„°ì˜ ì œê±° ëŒ€ìƒ ì˜ì—­ì¸ ê³³ì— ì—†ê±°ë‚˜ nullptrì´ ì•„ë‹Œ ê²½ìš° trueë¥¼ ë°˜í™˜
+	// ìœ íš¨í•˜ë‹¤ : IsValidëŠ” ê°€ë¹„ì§€ ì½œë ‰í„°ì˜ ì œê±° ëŒ€ìƒ ì˜ì—­ì¸ ê³³ì— ì—†ê±°ë‚˜ nullptrì´ ì•„ë‹Œ ê²½ìš° trueë¥¼ ë°˜í™˜í•´ìš© ì´ë•Œë¥¼ ìœ íš¨í•˜ë‹¤ê³  í•œë‹¤.
 	if (CurrentCharacterStat.IsValid())
 	{
 		if (nullptr != HPProgressBar)

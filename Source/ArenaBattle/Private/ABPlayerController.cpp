@@ -1,21 +1,18 @@
-// Fill out your copyright notice in the Description page of Project Settings.
-
-
 #include "ABPlayerController.h"
 
-// 14Àå 523p
+// 14ì¥ 523p
 #include "ABHUDWidget.h"
 
-// µ¥ÀÌÅÍ ¿¢ÅÍ ÀúÁ¤ÈÄ UI ¿¬µ¿
+// ë°ì´í„° ì—‘í„° ì €ì •í›„ UI ì—°ë™
 #include "ABPlayerState.h"
 
-// °æÇèÄ¡ ÀúÀå ¹× ·¹º§º¯È­ 532p
+// ê²½í—˜ì¹˜ ì €ì¥ ë° ë ˆë²¨ë³€í™” 532p
 #include "ABCharacter.h"
 
 AABPlayerController::AABPlayerController()
 {
-	// UI_HUD °´Ã¼»ı¼º but È­¸é¿¡ ¶ç¿ì´Â°÷Àº Begin¿¡¼­ ¶ç¿ò
-	// ºí·çÇÁ¸°Æ®·Î ÀÌ¿ëÇÏ±â ¶§¹®¿¡ ¸¶Áö¸·¿¡ _C ºÙ¿©ÁØ´Ù.
+	// UI_HUD ê°ì²´ìƒì„± but í™”ë©´ì— ë„ìš°ëŠ”ê³³ì€ Beginì—ì„œ ë„ì›€
+	// ë¸”ë£¨í”„ë¦°íŠ¸ë¡œ ì´ìš©í•˜ê¸° ë•Œë¬¸ì— ë§ˆì§€ë§‰ì— _C ë¶™ì—¬ì¤€ë‹¤.
 	static ConstructorHelpers::FClassFinder<UABHUDWidget> UI_HUD_C(TEXT("/Game/Book/UI/UI_HUD.UI_HUD_C"));
 	if (UI_HUD_C.Succeeded())
 	{
@@ -34,7 +31,7 @@ void AABPlayerController::OnPossess(APawn* aPawn)
 	ABLOG_S(Warning);
 	Super::OnPossess(aPawn);
 
-	
+
 }
 
 UABHUDWidget* AABPlayerController::GetHUDWidget() const
@@ -58,18 +55,17 @@ void AABPlayerController::BeginPlay()
 
 	FInputModeGameOnly InputMode;
 	SetInputMode(InputMode);
-	
-	// UI ¶ç¿ì±â
+
+	// UI ë„ìš°ê¸°
 	HUDWidget = CreateWidget<UABHUDWidget>(this, HUDWidgetClass);
 	HUDWidget->AddToViewport();
-	
-	// µ¥ÀÌÅÍ ¿¢ÅÍ ÀúÁ¤ÈÄ UI ¿¬µ¿
-	//auto ABPlayerState = Cast<AABPlayerState>(PlayerState); // ABPlayerState´Â h ÆÄÀÏ¿¡ class AABPlayerState* ÇüÅÂ·Î Ãß°¡
+
+	// ë°ì´í„° ì—‘í„° ì €ì •í›„ UI ì—°ë™
+	//auto ABPlayerState = Cast<AABPlayerState>(PlayerState); // ABPlayerStateëŠ” h íŒŒì¼ì— class AABPlayerState* í˜•íƒœë¡œ ì¶”ê°€
 
 	ABPlayerState = Cast<AABPlayerState>(PlayerState);
 	ABCHECK(nullptr != ABPlayerState);
 	HUDWidget->BindPlayerState(ABPlayerState);
 	ABPlayerState->OnPlayerStateChanged.Broadcast();
-	
-}
 
+}

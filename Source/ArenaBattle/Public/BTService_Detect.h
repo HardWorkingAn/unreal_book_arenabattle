@@ -1,6 +1,6 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
-// NPC°¡ ÇÃ·¹ÀÌ¾î Å½Áö ¹× ÃßÀû
+// NPCï¿½ï¿½ ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ Å½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 
 #pragma once
 

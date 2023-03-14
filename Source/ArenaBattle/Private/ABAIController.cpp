@@ -3,15 +3,15 @@
 
 #include "ABAIController.h"
 
-// »óÀ§¹öÀü¿¡ ´ëÇÑ º¯°æ»çÇ×
+// ìƒìœ„ë²„ì „ì— ëŒ€í•œ ë³€ê²½ì‚¬í•­
 #include "NavigationSystem.h"
 #include "Blueprint/AIBlueprintHelperLibrary.h"
 
-// ºñÇìÀÌºñ¾î Æ®¸® ¹× ºí·¢º¸µå »ç¿ë AIÀÌµ¿
+// ë¹„í—¤ì´ë¹„ì–´ íŠ¸ë¦¬ ë° ë¸”ë™ë³´ë“œ ì‚¬ìš© AIì´ë™
 #include "BehaviorTree/BehaviorTree.h"
 #include "BehaviorTree/BlackBoardData.h"
 
-// ºí·¢º¸µå¿¡¼­ Å° Ãß°¡ÇÑ°Å ¿¬°á
+// ë¸”ë™ë³´ë“œì—ì„œ í‚¤ ì¶”ê°€í•œê±° ì—°ê²°
 #include "BehaviorTree/BlackboardComponent.h"
 
 const FName AABAIController::HomePosKey(TEXT("HomePos"));
@@ -22,14 +22,14 @@ const FName AABAIController::TargetKey(TEXT("Target"));
 AABAIController::AABAIController()
 {
 	// ReapeatInterval = 3.0f;
-	
-	// ºñÇìÀÌºñ¾î Æ®¸® ¹× ºí·¢º¸µå »ç¿ë AIÀÌµ¿
+
+	// ë¹„í—¤ì´ë¹„ì–´ íŠ¸ë¦¬ ë° ë¸”ë™ë³´ë“œ ì‚¬ìš© AIì´ë™
 	static ConstructorHelpers::FObjectFinder<UBlackboardData> BBObject(TEXT("BlackboardData'/Game/Book/AI/BB_ABCharacter.BB_ABCharacter'"));
 	if (BBObject.Succeeded())
 	{
 		BBAsset = BBObject.Object;
 	}
-	
+
 	static ConstructorHelpers::FObjectFinder<UBehaviorTree> BTObject(TEXT("BehaviorTree'/Game/Book/AI/BT_ABCharacter.BT_ABCharacter'"));
 	if (BTObject.Succeeded())
 	{
@@ -42,13 +42,13 @@ void AABAIController::OnPossess(APawn* InPawn)
 	Super::OnPossess(InPawn);
 	//GetWorld()->GetTimerManager().SetTimer(RePeatTimerHandle, this, &AABAIController::OnRepeatTimer, ReapeatInterval, true);
 
-	// 14Àå 510p RunAI ¿¡¼­ ÀÛµ¿
+	// 14ì¥ 510p RunAI ì—ì„œ ì‘ë™
 	/*
 	if (UseBlackboard(BBAsset, Blackboard))
 	{
-		// ºí·¢º¸µå Å° ¿¬°áÇÑ°Å Ãß°¡
+		// ë¸”ë™ë³´ë“œ í‚¤ ì—°ê²°í•œê±° ì¶”ê°€
 		Blackboard->SetValueAsVector(HomePosKey, InPawn->GetActorLocation());
-		// 
+		//
 		if (!RunBehaviorTree(BTAsset))
 		{
 			ABLOG(Error, TEXT("AIController couldn't run behvior tree"));
@@ -60,7 +60,7 @@ void AABAIController::RunAI()
 {
 	if (UseBlackboard(BBAsset, Blackboard))
 	{
-		// ºí·¢º¸µå Å° ¿¬°áÇÑ°Å Ãß°¡
+		// ë¸”ë™ë³´ë“œ í‚¤ ì—°ê²°í•œê±° ì¶”ê°€
 		Blackboard->SetValueAsVector(HomePosKey, GetPawn()->GetActorLocation());
 		// 
 		if (!RunBehaviorTree(BTAsset))
@@ -77,22 +77,19 @@ void AABAIController::StopAI()
 		BehiviorTreeComponent->StopTree(EBTStopMode::Safe);
 	}
 }
-// AI ·£´ıÀ§Ä¡ ÀÌµ¿
+// AI ëœë¤ìœ„ì¹˜ ì´ë™
 /*
 void AABAIController::OnUnPossess()
 {
 	Super::OnUnPossess();
 	GetWorld()->GetTimerManager().ClearTimer(RePeatTimerHandle);
 }
-
 void AABAIController::OnRepeatTimer()
 {
 	auto CurrentPawn = GetPawn();
 	ABCHECK(nullptr != CurrentPawn);
-
 	UNavigationSystemV1* NavSystem = UNavigationSystemV1::GetNavigationSystem(GetWorld());
 	if(nullptr == NavSystem) return;
-
 	FNavLocation NextLocation;
 	if (NavSystem->GetRandomPointInNavigableRadius(FVector::ZeroVector, 500.0f, NextLocation))
 	{

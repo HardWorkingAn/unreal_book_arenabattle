@@ -12,7 +12,7 @@
  * 
  */
 
-// ¼¼ÀÌºê µ¥ÀÌÅÍ¸¦ ¸¸µé¾î ÀúÀåÇÏ´Â USaveGame ºÎ¸ðÅ¬·¡½º
+ // ì„¸ì´ë¸Œ ë°ì´í„°ë¥¼ ë§Œë“¤ì–´ ì €ìž¥í•˜ëŠ” USaveGame ë¶€ëª¨í´ëž˜ìŠ¤
 
 UCLASS()
 class ARENABATTLE_API UABSaveGame : public USaveGame

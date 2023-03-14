@@ -19,15 +19,15 @@ class ARENABATTLE_API AABPlayerController : public APlayerController
 public:
 	AABPlayerController();
 
-	// Actor ÄÄÆ÷³ÍÆ®°¡ ¿ÏÀüÈ÷ ÃÊ±âÈ­µÈ ÀÌÈÄ È£ÃâµÈ´Ù. °ÔÀÓ ÇÃ·¹ÀÌ Áß¿¡¸¸ È£Ãâ
+	// Actor ì»´í¬ë„ŒíŠ¸ê°€ ì™„ì „íˆ ì´ˆê¸°í™”ëœ ì´í›„ í˜¸ì¶œëœë‹¤. ê²Œì„ í”Œë ˆì´ ì¤‘ì—ë§Œ í˜¸ì¶œ
 	virtual void PostInitializeComponents() override;
-	// OnPossess ´Â ÄÁÆ®·ê·¯°¡ Æù¿¡ ºùÀÇ
+	// OnPossess ëŠ” ì»¨íŠ¸ë£°ëŸ¬ê°€ í°ì— ë¹™ì˜
 	virtual void OnPossess(APawn* aPawn) override;
-	// 4.22¹öÀü ÀÌÈÄºÎÅÍ´Â Possess´Â ¿À¹ö¶óÀÌµå ¸¦ ÇÒ ¼ö ¾øÀ¸¸ç OnPossess·Î ¹Ù²ñ
+	// 4.22ë²„ì „ ì´í›„ë¶€í„°ëŠ” PossessëŠ” ì˜¤ë²„ë¼ì´ë“œ ë¥¼ í•  ìˆ˜ ì—†ìœ¼ë©° OnPossessë¡œ ë°”ë€œ
 	//virtual void Possess(APawn* aPawn) override;
 
 	class UABHUDWidget* GetHUDWidget() const;
-	// °æÇèÄ¡ ÀúÀå ¹× ·¹º§º¯È­ 536p
+	// ê²½í—˜ì¹˜ ì €ì¥ ë° ë ˆë²¨ë³€í™” 536p
 	void NPCKill(class AABCharacter* KilledNPC) const;
 	// 546p
 	void AddGameScore() const;
@@ -42,7 +42,7 @@ private:
 	UPROPERTY()
 	class UABHUDWidget* HUDWidget;
 
-	// °æÇèÄ¡ ÀúÀå ¹× ·¹º§º¯È­ 536p
+	// ê²½í—˜ì¹˜ ì €ì¥ ë° ë ˆë²¨ë³€í™” 536p
 	UPROPERTY()
 	class AABPlayerState* ABPlayerState;
 };

@@ -1,3 +1,5 @@
+ines(87 sloc)  2.63 KB
+
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
@@ -24,17 +26,17 @@ void UABCharacterStatComponent::BeginPlay()
 	Super::BeginPlay();
 
 	// ...
-	
+
 }
-// ÀÌ ÇÔ¼ö¸¦ È£ÃâÇÏ±â À§ÇØ¼­´Â »ı¼ºÀÚ¿¡¼­ bWantsInitializeComponent = true; ¸¦ ÇØÁà¾ßÇÑ´Ù.
+// ì´ í•¨ìˆ˜ë¥¼ í˜¸ì¶œí•˜ê¸° ìœ„í•´ì„œëŠ” ìƒì„±ìì—ì„œ bWantsInitializeComponent = true; ë¥¼ í•´ì¤˜ì•¼í•œë‹¤.
 void UABCharacterStatComponent::InitializeComponent()
 {
 	Super::InitializeComponent();
 	SetNewLevel(Level);
-	
+
 }
 
-//  ´ë¹ÌÁö Àü´Ş ÈÄ HP <= 0 ÀÌ¸é Á×´Â¸ğ¼Ç
+//  ëŒ€ë¯¸ì§€ ì „ë‹¬ í›„ HP <= 0 ì´ë©´ ì£½ëŠ”ëª¨ì…˜
 void UABCharacterStatComponent::SetNewLevel(int32 NewLevel)
 {
 	auto ABGameInstance = Cast<UABGameInstance>(UGameplayStatics::GetGameInstance(GetWorld()));
@@ -62,17 +64,17 @@ void UABCharacterStatComponent::SetDamage(float NewDamage)
 		OnHPIsZero.Broadcast();
 	}
 	*/
-	// UI À§Á¬ Ãß°¡
+	// UI ìœ„ì ¯ ì¶”ê°€
 	SetHP(FMath::Clamp<float>(CurrentHP - NewDamage, 0.0f, CurrentStatData->MaxHP));
 
 }
 
-// UI Ã¼·Â¹Ù À§Á¬
+// UI ì²´ë ¥ë°” ìœ„ì ¯
 void UABCharacterStatComponent::SetHP(float NewHP)
 {
 	CurrentHP = NewHP;
 	OnHPChanged.Broadcast();
-	//  KINDA_SMALL_NUMBER Àº float°¡ 0 °ú ºñ±³ÇÒ ¶§ ¼Ò¼ıÁ¡ ¿ÀÂ÷ ¹ß»ıÇÒ ¼ö ÀÖÀ¸´Ï 0°ú Á¦ÀÏ °¡±î¿î KINDA_SMALL_NUMBER ¸¦ 0¸»°í ºñ±³ÇÒ ¶§ ¾´´Ù.
+	//  KINDA_SMALL_NUMBER ì€ floatê°€ 0 ê³¼ ë¹„êµí•  ë•Œ ì†Œìˆ«ì  ì˜¤ì°¨ ë°œìƒí•  ìˆ˜ ìˆìœ¼ë‹ˆ 0ê³¼ ì œì¼ ê°€ê¹Œìš´ KINDA_SMALL_NUMBER ë¥¼ 0ë§ê³  ë¹„êµí•  ë•Œ ì“´ë‹¤.
 	if (CurrentHP < KINDA_SMALL_NUMBER)
 	{
 		CurrentHP = 0.0f;
@@ -86,7 +88,7 @@ float UABCharacterStatComponent::GetAttack()
 	return CurrentStatData->Attack;
 }
 
-// UI Ã¼·Â¹Ù À§Á¬
+// UI ì²´ë ¥ë°” ìœ„ì ¯
 float UABCharacterStatComponent::GetHPRatio()
 {
 	ABCHECK(nullptr != CurrentStatData, 0.0f);
@@ -106,4 +108,3 @@ void UABCharacterStatComponent::TickComponent(float DeltaTime, ELevelTick TickTy
 
 	// ...
 }
-

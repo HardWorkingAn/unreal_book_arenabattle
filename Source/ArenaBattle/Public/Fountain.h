@@ -5,7 +5,7 @@
 #include "ArenaBattle.h"
 
 #include "EngineMinimal.h"
-//¿òÁ÷ÀÓ °ü·Ã ÇØ´õÆÄÀÏ
+//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ø´ï¿½ï¿½ï¿½ï¿½ï¿½
 #include "GameFramework/RotatingMovementComponent.h"
 
 #include "GameFramework/Actor.h"
@@ -48,11 +48,11 @@ public:
 	UPROPERTY(EditAnywhere, Category=ID)
 	int32 ID;
 
-	// 115p ¹«ºê¸ÕÆ® ÄÄÆ÷³ÍÆ® #include "GameFramework/RotatingMovementComponent.h" °°ÀÌ ÇÊ¿äÇÑ°ÍÀ» ÂüÁ¶ÇØ¾ßÇÔ
-	// 4°¡Áö : FloatingPawnMovement : Áß·ÂÀÇ ¿µÇâÀ» ¹ŞÁö ¾Ê´Â ¾×ÅÍÀÇ ¿òÁ÷ÀÓ
-	//         RotatingMoveMent     : ÁöÁ¤ÇÑ ¼Óµµ·Î ¿¢ÅÍ¸¦ È¸Àü
-	//         InterpMovement		: ÁöÁ¤ÇÑ À§Ä¡·Î ¿¢ÅÍ¸¦ ÀÌµ¿
-	//		   ProjectileMovement	: ¿¢ÅÍ¿¡ Áß·ÂÀÇ ¿µÇâÀ» ¹Ş¾Æ Æ÷¹°¼±À» ±×¸®´Â ¹ß»çÃ¼ ¿òÁ÷ÀÓ Á¦°ø. ÁÖ·Î ÃÑ¾ËÀÌ³ª ¹Ì»çÀÏ »ç¿ë
+	// 115p ë¬´ë¸Œë¨¼íŠ¸ ì»´í¬ë„ŒíŠ¸ #include "GameFramework/RotatingMovementComponent.h" ê°™ì´ í•„ìš”í•œê²ƒì„ ì°¸ì¡°í•´ì•¼í•¨
+	// 4ê°€ì§€ : FloatingPawnMovement : ì¤‘ë ¥ì˜ ì˜í–¥ì„ ë°›ì§€ ì•ŠëŠ” ì•¡í„°ì˜ ì›€ì§ì„
+	//         RotatingMoveMent     : ì§€ì •í•œ ì†ë„ë¡œ ì—‘í„°ë¥¼ íšŒì „
+	//         InterpMovement		: ì§€ì •í•œ ìœ„ì¹˜ë¡œ ì—‘í„°ë¥¼ ì´ë™
+	//		   ProjectileMovement	: ì—‘í„°ì— ì¤‘ë ¥ì˜ ì˜í–¥ì„ ë°›ì•„ í¬ë¬¼ì„ ì„ ê·¸ë¦¬ëŠ” ë°œì‚¬ì²´ ì›€ì§ì„ ì œê³µ. ì£¼ë¡œ ì´ì•Œì´ë‚˜ ë¯¸ì‚¬ì¼ ì‚¬ìš©
 
 	UPROPERTY(VisibleAnywhere)
 	URotatingMovementComponent* Movement;

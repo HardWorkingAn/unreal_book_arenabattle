@@ -4,30 +4,30 @@
 
 #include "EngineMinimal.h"
 
-// ½ºÅ×ÀÌÆ® ¸Ó½Å ¸ðµ¨·Î °ÔÀÓ ÁøÇà´Ü°è ±¸ºÐ 501p
+// ìŠ¤í…Œì´íŠ¸ ë¨¸ì‹  ëª¨ë¸ë¡œ ê²Œìž„ ì§„í–‰ë‹¨ê³„ êµ¬ë¶„ 501p
 UENUM(BlueprintType)
 enum class ECharacterState : uint8
 {
-	PREINIT,  //Ä³¸¯ÅÍ »ý¼º Àü Ä³¸¯ÅÍ¿Í UI¸¦ ¼û°ÜµÒ ÇØ´ç ½ºÅ×ÀÌÆ®¿¡¼­´Â ´ë¹ÌÁö ÇÇÇØx
-	LOADING, //¼±ÅÃÇÑ Ä³¸¯ÅÍ ¿¡¼ÂÀ» ·ÎµùÇÏ´Â ½ºÅ×ÀÌÆ®, ¿¡¼Â ·Îµù µÉ¶§ ±îÁö ¿òÁ÷ÀÓx
-	READY, //Ä³¸¯ÅÍ ¿¡¼Â ·ÎµùÀÌ ¿Ï·áµÈ ½ºÅ×ÀÌÆ®, ¼û°ÜµÐ Ä³¸¯ÅÍ¿Í UI°¡ º¸ÀÌ¸ç ÀÌ¶§ºÎÅÍ ¿òÁ÷ÀÏ ¼ö ÀÖÀ¸¸ç °ø°Ý ¹ÞÀ¸¸é ÇÇÇØ
-	DEAD // Ä³¸¯ÅÍ°¡ hp¸¦ ¼ÒÁøÇØ »ç¸ÁÇÒ ¶§ ¹ß»ýÇÏ´Â ½ºÅ×ÀÌÆ® Á×´Â ¾Ö´Ï¸ÞÀÌ¼Ç Àç»ýÇÏ°í UI¸¦ ²ô°í Ãæµ¹ ±â´É Á¦°Å
+	PREINIT,  //ìºë¦­í„° ìƒì„± ì „ ìºë¦­í„°ì™€ UIë¥¼ ìˆ¨ê²¨ë‘  í•´ë‹¹ ìŠ¤í…Œì´íŠ¸ì—ì„œëŠ” ëŒ€ë¯¸ì§€ í”¼í•´x
+	LOADING, //ì„ íƒí•œ ìºë¦­í„° ì—ì…‹ì„ ë¡œë”©í•˜ëŠ” ìŠ¤í…Œì´íŠ¸, ì—ì…‹ ë¡œë”© ë ë•Œ ê¹Œì§€ ì›€ì§ìž„x
+	READY, //ìºë¦­í„° ì—ì…‹ ë¡œë”©ì´ ì™„ë£Œëœ ìŠ¤í…Œì´íŠ¸, ìˆ¨ê²¨ë‘” ìºë¦­í„°ì™€ UIê°€ ë³´ì´ë©° ì´ë•Œë¶€í„° ì›€ì§ì¼ ìˆ˜ ìžˆìœ¼ë©° ê³µê²© ë°›ìœ¼ë©´ í”¼í•´
+	DEAD // ìºë¦­í„°ê°€ hpë¥¼ ì†Œì§„í•´ ì‚¬ë§í•  ë•Œ ë°œìƒí•˜ëŠ” ìŠ¤í…Œì´íŠ¸ ì£½ëŠ” ì• ë‹ˆë©”ì´ì…˜ ìž¬ìƒí•˜ê³  UIë¥¼ ë„ê³  ì¶©ëŒ ê¸°ëŠ¥ ì œê±°
 };
 
 DECLARE_LOG_CATEGORY_EXTERN(ArenaBattle, Log, All);
 
-// ¿¹¾à¾î°¡ ¾Æ´Ñ ÁöÁ¤ÇØÁØ º¯¼ö¸íÀÓ
-// ABLOG_S : ÄÚµå°¡ µé¾îÀÖ´Â ÆÄÀÏ ÀÌ¸§°ú ÇÔ¼ö, ±×¸®°í ¶óÀÎÁ¤º¸¸¦ Ãß°¡ÇØ ArenaBattle Ä«Å×°í¸®·Î ·Î±×¸¦ ³²±è
-// ·Î±×¸¦ »ç¿ëÇÑ ÇÔ¼öÀÇ ½ÇÇà ½ÃÁ¡À» ÆÄ¾ÇÇÒ ‹š À¯¿ë
-// ABLOG : ABLOG_S Á¤º¸¿¡ Çü½Ä ¹®ÀÚ¿­·Î Ãß°¡ Á¤º¸¸¦ ÁöÁ¤ÇØ ·Î±×¸¦ ³²±ä´Ù.
+// ì˜ˆì•½ì–´ê°€ ì•„ë‹Œ ì§€ì •í•´ì¤€ ë³€ìˆ˜ëª…ìž„
+// ABLOG_S : ì½”ë“œê°€ ë“¤ì–´ìžˆëŠ” íŒŒì¼ ì´ë¦„ê³¼ í•¨ìˆ˜, ê·¸ë¦¬ê³  ë¼ì¸ì •ë³´ë¥¼ ì¶”ê°€í•´ ArenaBattle ì¹´í…Œê³ ë¦¬ë¡œ ë¡œê·¸ë¥¼ ë‚¨ê¹€
+// ë¡œê·¸ë¥¼ ì‚¬ìš©í•œ í•¨ìˆ˜ì˜ ì‹¤í–‰ ì‹œì ì„ íŒŒì•…í•  Â‹Âš ìœ ìš©
+// ABLOG : ABLOG_S ì •ë³´ì— í˜•ì‹ ë¬¸ìžì—´ë¡œ ì¶”ê°€ ì •ë³´ë¥¼ ì§€ì •í•´ ë¡œê·¸ë¥¼ ë‚¨ê¸´ë‹¤.
 #define ABLOG_CALLINFO (FString(__FUNCTION__) + TEXT("(") + FString::FromInt(__LINE__) + TEXT(")"))
-// Verbosity : ·Î±ë¼öÁØ
+// Verbosity : ë¡œê¹…ìˆ˜ì¤€
 #define ABLOG_S(Verbosity) UE_LOG(ArenaBattle, Verbosity, TEXT("%s"), *ABLOG_CALLINFO)
 // Printf(*FString::Printf(Format, ##__VA_ARGS__)) 
-// ABLOG(Warning, TEXT("Actor Name : %s, ID : %d, Location X : %.3f"), *GetName(), ID, GetActorLocation().X) ¿¡¼­ ³ª¿Â Format ¸Å°³º¯¼ö¹ÞÀº ¹®ÀÚ¿­À»
-// *FString::Printf(Format, ##_VA_ARGS__) Format ÀÌ¶õ ¸Å°³º¯¼ö¸íÀÌ ÀÏÄ¡ÇÏ¹Ç·Î ¹®ÀÚ¿­À» °¡Á®¿Â´Ù.
-// UE_LOG(ArenaBattle, ABLOG ¸Å°³º¯¼ö Verbosity, TEXT("%s%s"), 
-//                                *ABLOG_CALLINFO, "Actor Name ~~ "ÀÛµ¿
+// ABLOG(Warning, TEXT("Actor Name : %s, ID : %d, Location X : %.3f"), *GetName(), ID, GetActorLocation().X) ì—ì„œ ë‚˜ì˜¨ Format ë§¤ê°œë³€ìˆ˜ë°›ì€ ë¬¸ìžì—´ì„
+// *FString::Printf(Format, ##_VA_ARGS__) Format ì´ëž€ ë§¤ê°œë³€ìˆ˜ëª…ì´ ì¼ì¹˜í•˜ë¯€ë¡œ ë¬¸ìžì—´ì„ ê°€ì ¸ì˜¨ë‹¤.
+// UE_LOG(ArenaBattle, ABLOG ë§¤ê°œë³€ìˆ˜ Verbosity, TEXT("%s%s"), 
+//                                *ABLOG_CALLINFO, "Actor Name ~~ "ìž‘ë™
 #define ABLOG(Verbosity, Format, ...) UE_LOG(ArenaBattle, Verbosity, TEXT("%s%s"), *ABLOG_CALLINFO, *FString::Printf(Format, ##__VA_ARGS__))
 
 

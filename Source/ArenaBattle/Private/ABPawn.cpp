@@ -6,31 +6,31 @@
 // Sets default values
 AABPawn::AABPawn()
 {
- 	// Set this pawn to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
+	// Set this pawn to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
-	
+
 	Capsule = CreateDefaultSubobject<UCapsuleComponent>(TEXT("CAPSULE"));
 	Mesh = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("MESH"));
 	Movement = CreateDefaultSubobject<UFloatingPawnMovement>(TEXT("MOVEMENT"));
 	SpringArm = CreateDefaultSubobject<USpringArmComponent>(TEXT("SPRINGARM"));
 	Camera = CreateDefaultSubobject<UCameraComponent>(TEXT("CAMERA"));
 
-	//Movement¥¬ ƒƒ∆˜≥Õ∆Æ∞° æ∆¥— Movement ∂Ûº≠ µÓ∏§x
+	//MovementÎäî Ïª¥Ìè¨ÎÑåÌä∏Í∞Ä ÏïÑÎãå Movement ÎùºÏÑú Îì±Î•µx
 	RootComponent = Capsule;
 	Mesh->SetupAttachment(Capsule);
 	SpringArm->SetupAttachment(Capsule);
 	Camera->SetupAttachment(SpringArm);
 
-	//Capsule¥¬ √Êµπ ∞®¡ˆ∏¶ «œ±‚¿ß«— ∏ˆ≈©±‚ º≥¡§ ¿ßƒ°¥¬ πﬂπŸ¥⁄∫Œ≈Õ Ω√¿€«—¥Ÿ.
-	Capsule->SetCapsuleHalfHeight(88.0f); // ≥Ù¿Ã πŸ¥⁄∫Œ≈Õ 88.0f
-	Capsule->SetCapsuleRadius(34.0f); // µ—∑π 34.0f 
+	//CapsuleÎäî Ï∂©Îèå Í∞êÏßÄÎ•º ÌïòÍ∏∞ÏúÑÌïú Î™∏ÌÅ¨Í∏∞ ÏÑ§Ï†ï ÏúÑÏπòÎäî Î∞úÎ∞îÎã•Î∂ÄÌÑ∞ ÏãúÏûëÌïúÎã§.
+	Capsule->SetCapsuleHalfHeight(88.0f); // ÎÜíÏù¥ Î∞îÎã•Î∂ÄÌÑ∞ 88.0f
+	Capsule->SetCapsuleRadius(34.0f); // ÎëòÎ†à 34.0f 
 	Mesh->SetRelativeLocationAndRotation(FVector(0.0f, 0.0f, -88.0f), FRotator(0.0f, -90.0f, 0.0f));
 	SpringArm->TargetArmLength = 400.0f;
 	SpringArm->SetRelativeRotation(FRotator(-15.0f, 0.0f, 0.0f));
 
 
-	//ªÁøÎ«“ ∆˘ µÓ∏§
+	//ÏÇ¨Ïö©Ìï† Ìè∞ Îì±Î•µ
 	static ConstructorHelpers::FObjectFinder<USkeletalMesh> SK_CARDBOARD(TEXT("/Game/InfinityBladeWarriors/Character/CompleteCharacters/SK_CharM_Cardboard.SK_CharM_Cardboard"));
 	if (SK_CARDBOARD.Succeeded())
 	{
@@ -38,7 +38,7 @@ AABPawn::AABPawn()
 	}
 
 	Mesh->SetAnimationMode(EAnimationMode::AnimationBlueprint);
-	// ∫Ì∑Á«¡∏∞∆Æ∑Œ æ÷¥œ∏ﬁ¿Ãº« ¿˚øÎ«“ ∂ß 
+	// Î∏îÎ£®ÌîÑÎ¶∞Ìä∏Î°ú Ïï†ÎãàÎ©îÏù¥ÏÖò Ï†ÅÏö©Ìï† Îïå 
 	static ConstructorHelpers::FClassFinder<UAnimInstance> WARRIOR_ANIM(TEXT("/Game/Book/animations/WarriorAnimBluePrint.WarriorAnimBluePrint_C"));
 	if (WARRIOR_ANIM.Succeeded())
 	{
@@ -50,11 +50,10 @@ AABPawn::AABPawn()
 void AABPawn::BeginPlay()
 {
 	Super::BeginPlay();
-	// c++∑Œ ¡˜¡¢ æ÷¥œ∏ﬁ¿Ãº« ¿˚øÎ«“ ∂ß
+	// c++Î°ú ÏßÅÏ†ë Ïï†ÎãàÎ©îÏù¥ÏÖò Ï†ÅÏö©Ìï† Îïå
 	/*
 	Mesh->SetAnimationMode(EAnimationMode::AnimationSingleNode);
 	UAnimationAsset* AnimAsset = LoadObject<UAnimationAsset>(nullptr, TEXT("/Game/Book/animations/WarriorRun.WarriorRun"));
-
 	if (AnimAsset != nullptr)
 	{
 		Mesh->PlayAnimation(AnimAsset, true);
@@ -74,7 +73,7 @@ void AABPawn::PostInitializeComponents()
 	Super::PostInitializeComponents();
 	ABLOG_S(Warning);
 }
-void AABPawn::PossessedBy(AController* NewController) 
+void AABPawn::PossessedBy(AController* NewController)
 {
 	ABLOG_S(Warning);
 	Super::PossessedBy(NewController);
@@ -100,4 +99,3 @@ void AABPawn::LeftRight(float NewAxisValue)
 	//ABLOG(Warning, TEXT("%f"), NewAxisValue);
 	AddMovementInput(GetActorRightVector(), NewAxisValue);
 }
-

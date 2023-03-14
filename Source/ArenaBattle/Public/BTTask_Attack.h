@@ -1,6 +1,6 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
-// 441p еб╫╨е╘ ╟Ь╟щ╦М╥и
+// 441p О©╫б╫О©╫е╘ О©╫О©╫О©╫щ╦О©╫О©╫
 
 #pragma once
 

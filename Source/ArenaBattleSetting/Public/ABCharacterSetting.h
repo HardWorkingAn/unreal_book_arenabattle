@@ -6,15 +6,14 @@
 #include "UObject/NoExportTypes.h"
 #include "ABCharacterSetting.generated.h"
 
-// ABCharacterSetting  ¾ÕÀ¸·Î »ç¿ëÇÒ Ä³¸¯ÅÍ ¿¡¼ÂÀÇ ¸ñ·ÏÀ» º¸°ü.
-// »ý¼ºÀÚ ÄÚµå¿¡ Ä³¸¯ÅÍ ¿¡¼ÂÀ» ÄÚµå·Î ÁöÁ¤ÇÒ ¼ö ÀÖÁö¸¸ ¸¸ÀÏ ¿¡¼ÂÀÌ º¯°æµÇ¸é ÄÚµå¸¦ ´Ù½Ã ¸¸µé°í ÄÄÆÄÀÏ ÇØ¾ß ÇÏ±â ¶§¹®¿¡
-// ¾ð¸®¾ó ¿ÀºêÁ§Æ®ÀÇ ±âº»°ªÀ» À¯¿¬ÇÏ°Ô °ü¸® ÇÏµµ·Ï ¿ÜºÎ INIÆÄÀÏ ¿¡¼­ ±âº» ¼Ó¼º°ªÀ» ÁöÁ¤ÇÏ´Â ±â´É »ç¿ë
+// ABCharacterSetting  ì•žìœ¼ë¡œ ì‚¬ìš©í•  ìºë¦­í„° ì—ì…‹ì˜ ëª©ë¡ì„ ë³´ê´€.
+// ìƒì„±ìž ì½”ë“œì— ìºë¦­í„° ì—ì…‹ì„ ì½”ë“œë¡œ ì§€ì •í•  ìˆ˜ ìžˆì§€ë§Œ ë§Œì¼ ì—ì…‹ì´ ë³€ê²½ë˜ë©´ ì½”ë“œë¥¼ ë‹¤ì‹œ ë§Œë“¤ê³  ì»´íŒŒì¼ í•´ì•¼ í•˜ê¸° ë•Œë¬¸ì—
+// ì–¸ë¦¬ì–¼ ì˜¤ë¸Œì íŠ¸ì˜ ê¸°ë³¸ê°’ì„ ìœ ì—°í•˜ê²Œ ê´€ë¦¬ í•˜ë„ë¡ ì™¸ë¶€ INIíŒŒì¼ ì—ì„œ ê¸°ë³¸ ì†ì„±ê°’ì„ ì§€ì •í•˜ëŠ” ê¸°ëŠ¥ ì‚¬ìš©
 /**
- * 
+ *
  */
-// ¾ð¸®¾ó¿¡ ±âº»°ªÀÎ INIÆÄÀÏ ºÒ·¯µéÀÏ·Á¸é UCLASS¿¡ config Å°¿öµå¸¦ Ãß°¡ÇØ ¿©±â¿¡ ºÒ·¯µéÀÏ INIÆÄÀÏ ÀÌ¸§À» ÁöÁ¤ÇÏ°í 
-// ºÒ·¯µéÀÏ PROPERTY ¼Ó¼º¿¡ config Å°¿öµå¸¦ ¼±¾ðÇØ¾ßÇÑ´Ù.
-UCLASS(config=ArenaBattle) // config ¿¡¼­ Arenabattle¸¦ ÁöÁ¤ÇØ¼­ config Æú´õ ¾È¿¡ ÀÖ´Â DefaultArenaBattle.ini ÆÄÀÏÀ» ÀÐ¾î¿Â´Ù.
+ // ì–¸ë¦¬ì–¼ì— ê¸°ë³¸ê°’ì¸ INIíŒŒì¼ ë¶ˆëŸ¬ë“¤ì¼ë ¤ë©´ UCLASSì— config í‚¤ì›Œë“œë¥¼ ì¶”ê°€í•´ ì—¬ê¸°ì— ë¶ˆëŸ¬ë“¤ì¼ INIíŒŒì¼ ì´ë¦„ì„ ì§€ì •í•˜ê³  
+ // ë¶ˆëŸ¬ë“¤ì¼ PROPERTY ì†ì„±ì— config í‚¤ì›Œë“œë¥¼ ì„ ì–¸í•´ì•¼í•œë‹¤.
 class ARENABATTLESETTING_API UABCharacterSetting : public UObject
 {
 	GENERATED_BODY()
@@ -23,7 +22,7 @@ public:
 	UABCharacterSetting();
 
 	UPROPERTY(config)
-	//¿¡¼Â °æ·Î À§Ä¡¸¦ ÀúÀå º¸°üÇÏ´Â FSoftObjectPath
+	//ì—ì…‹ ê²½ë¡œ ìœ„ì¹˜ë¥¼ ì €ìž¥ ë³´ê´€í•˜ëŠ” FSoftObjectPath
 	TArray<FSoftObjectPath> CharacterAssets;
 
 };

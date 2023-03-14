@@ -8,19 +8,19 @@
 #include "Components/ActorComponent.h"
 #include "ABCharacterStatComponent.generated.h"
 
-// ´ë¹ÌÁö Àü´Ş ÈÄ HP <= 0 ÀÌ¸é Á×´Â¸ğ¼Ç À§ÇÑ µ¨¸®°ÔÀÌÆ®
+// ëŒ€ë¯¸ì§€ ì „ë‹¬ í›„ HP <= 0 ì´ë©´ ì£½ëŠ”ëª¨ì…˜ ìœ„í•œ ë¸ë¦¬ê²Œì´íŠ¸
 DECLARE_MULTICAST_DELEGATE(FOnHPIsZeroDelegate);
 
-// HPBar À§Á¬ÀÌ¶û ¿¬µ¿ÇÏ±â À§ÇÑ µ¨¸®°ÔÀÌÆ®
+// HPBar ìœ„ì ¯ì´ë‘ ì—°ë™í•˜ê¸° ìœ„í•œ ë¸ë¦¬ê²Œì´íŠ¸
 DECLARE_MULTICAST_DELEGATE(FOnHPChangedDelegate);
 
 
-UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
+UCLASS(ClassGroup = (Custom), meta = (BlueprintSpawnableComponent))
 class ARENABATTLE_API UABCharacterStatComponent : public UActorComponent
 {
 	GENERATED_BODY()
 
-public:	
+public:
 	// Sets default values for this component's properties
 	UABCharacterStatComponent();
 
@@ -28,19 +28,19 @@ protected:
 	// Called when the game starts
 	virtual void BeginPlay() override;
 
-	// InitializeComponent() ÇÔ¼ö´Â PostInitializeComponent ÇÔ¼ö È£ÃâÇÏ±â Àü¿¡ È£ÃâµÈ´Ù.
+	// InitializeComponent() í•¨ìˆ˜ëŠ” PostInitializeComponent í•¨ìˆ˜ í˜¸ì¶œí•˜ê¸° ì „ì— í˜¸ì¶œëœë‹¤.
 	virtual void InitializeComponent() override;
 
 public:
 	void SetNewLevel(int32 NewLevel);
 
-	// ´ë¹ÌÁö Àü´Ş ÈÄ HP <= 0 ÀÌ¸é Á×´Â¸ğ¼Ç
+	// ëŒ€ë¯¸ì§€ ì „ë‹¬ í›„ HP <= 0 ì´ë©´ ì£½ëŠ”ëª¨ì…˜
 	void SetDamage(float NewDamage);
 	void SetHP(float NewHP);
 	float GetAttack();
 	float GetHPRatio();
-	
-	// °æÇèÄ¡ ÀúÀå ¹× ·¹º§º¯È­ 532p
+
+	// ê²½í—˜ì¹˜ ì €ì¥ ë° ë ˆë²¨ë³€í™” 532p
 	int32 GetDropExp() const;
 	//
 
@@ -52,14 +52,13 @@ private:
 	struct FABCharacterData* CurrentStatData = nullptr;
 
 	UPROPERTY(EditInstanceOnly, Category = Stat, Meta = (AllowPrivateAccess = true))
-	int32 Level;
+		int32 Level;
 
 	UPROPERTY(Transient, VisibleInstanceOnly, Category = Stat, Meta = (AllowPrivateAccess = true))
-	float CurrentHP;
+		float CurrentHP;
 
-public:	
+public:
 	// Called every frame
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 
-		
 };

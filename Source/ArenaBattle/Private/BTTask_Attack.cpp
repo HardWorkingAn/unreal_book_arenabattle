@@ -34,7 +34,7 @@ void UBTTask_Attack::TickTask(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemo
     Super::TickTask(OwnerComp, NodeMemory, DeltaSeconds);
     if (!IsAttacking)
     {
-        //ÅÂ½ºÅ© Á¾·á
+        //íƒœìŠ¤í¬ ì¢…ë£Œ í•¨ìˆ˜
         FinishLatentTask(OwnerComp, EBTNodeResult::Succeeded);
     }
 }

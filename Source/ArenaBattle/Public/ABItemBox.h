@@ -21,7 +21,7 @@ protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
-	// ¹Ú½º »ı¼ºÀü µ¨¸®°ÔÀÌÆ®¸¦ ¸ÕÀú ¿¬µ¿
+	// ë°•ìŠ¤ ìƒì„±ì „ ë¸ë¦¬ê²Œì´íŠ¸ë¥¼ ë¨¼ì € ì—°ë™
 	virtual void PostInitializeComponents() override;
 
 public:	
@@ -35,18 +35,18 @@ public:
 	UPROPERTY(VisibleAnywhere, Category = Box)
 	UStaticMeshComponent* Box;
 
-	// ¾ÆÀÌÅÛ ½Àµæ½Ã 
+	// ì•„ì´í…œ ìŠµë“ì‹œ 
 	UPROPERTY(EditInstanceOnly, Category = Box)
-	TSubclassOf<class AABWeapon> WeaponItemClass;
-	// ÀÌÆåÆ®
+		TSubclassOf<class AABWeapon> WeaponItemClass;
+	// ì´í™íŠ¸
 	UPROPERTY(VisibleAnywhere, Category = Effect)
-	UParticleSystemComponent* Effect;
+		UParticleSystemComponent* Effect;
 
 private:
-	//ÇØ´ç ÇÔ¼ö¸¦ µ¨¸®°ÔÀÌÆ®¿¡ ¹ÙÀÎµùÇÏ¿© Overlap ÀÌº¥Æ®°¡ ¹ß»ıÇÏ¸é ÀÛµ¿
+	//í•´ë‹¹ í•¨ìˆ˜ë¥¼ ë¸ë¦¬ê²Œì´íŠ¸ì— ë°”ì¸ë”©í•˜ì—¬ Overlap ì´ë²¤íŠ¸ê°€ ë°œìƒí•˜ë©´ ì‘ë™
 	UFUNCTION()
-	void OnCharacterOverlap(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
+		void OnCharacterOverlap(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
 
 	UFUNCTION()
-	void OnEffectFinished(class UParticleSystemComponent* PSystem);
+		void OnEffectFinished(class UParticleSystemComponent* PSystem);
 };

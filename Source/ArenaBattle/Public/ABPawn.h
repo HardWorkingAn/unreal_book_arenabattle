@@ -29,7 +29,7 @@ public:
 	virtual void Tick(float DeltaTime) override;
 
 	virtual void PostInitializeComponents() override;
-	//ºùÀÇ µÇ´Â ½ÃÁ¡ È®ÀÎ OnPossess È£ÃâµÇ¸é Æù¿¡¼­	PossessedBy È£Ãâ
+	//ë¹™ì˜ ë˜ëŠ” ì‹œì  í™•ì¸ OnPossess í˜¸ì¶œë˜ë©´ í°ì—ì„œ	PossessedBy í˜¸ì¶œ
 	virtual void PossessedBy(AController* NewController) override;
 
 	// Called to bind functionality to input

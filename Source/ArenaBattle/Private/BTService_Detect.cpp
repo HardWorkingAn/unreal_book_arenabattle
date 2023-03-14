@@ -22,17 +22,14 @@ void UBTService_Detect::TickNode(UBehaviorTreeComponent& OwnerComp, uint8* NodeM
 	{
 		return;
 	}
-
 	UWorld* World = ControllingPawn->GetWorld();
 	FVector Center = ControllingPawn->GetActorLocation();
-	// √ﬂ¿˚∞≈∏Æ
+	// Ï∂îÏ†ÅÍ±∞Î¶¨
 	float DetectRadius = 500.0f;
-
 	if (nullptr == World)
 	{
 		return;
 	}
-
 	TArray<FOverlapResult> OverlapResults;
 	FCollisionQueryParams CollisionQueryParams(NAME_None, false, ControllingPawn);
 	bool bResult = World->OverlapMultiByChannel(
@@ -43,24 +40,21 @@ void UBTService_Detect::TickNode(UBehaviorTreeComponent& OwnerComp, uint8* NodeM
 		FCollisionShape::MakeSphere(DetectRadius),
 		CollisionQueryParams
 	);
-
 	if (bResult)
 	{
 		for (auto const& OverlapResult : OverlapResults)
 		{
 			AABCharacter* ABCharacter = Cast<AABCharacter>(OverlapResult.GetActor());
-
-			// ∆˘ ≈Ω¡ˆ π¸¿ß æ»ø° µÈæÓøÕ ¿÷¥Ÿ∏È
-			if (ABCharacter && ABCharacter->GetController()->IsPlayerController()) 
+			// Ìè∞ ÌÉêÏßÄ Î≤îÏúÑ ÏïàÏóê Îì§Ïñ¥ÏôÄ ÏûàÎã§Î©¥
+			if (ABCharacter && ABCharacter->GetController()->IsPlayerController())
 			{
 				OwnerComp.GetBlackboardComponent()->SetValueAsObject(AABAIController::TargetKey, ABCharacter);
-
 				DrawDebugSphere(World, Center, DetectRadius, 16, FColor::Green, false, 0.2f);
-				// ≈Ω¡ˆ π¸¿ß ≥ª µÈæÓø¿∏È ≈Ω¡ˆπ¸¿ß∞° √ ∑œªˆ¿∏∑Œ ∫Ø»Ø
+				// ÌÉêÏßÄ Î≤îÏúÑ ÎÇ¥ Îì§Ïñ¥Ïò§Î©¥ ÌÉêÏßÄÎ≤îÏúÑÍ∞Ä Ï¥àÎ°ùÏÉâÏúºÎ°ú Î≥ÄÌôò
 				DrawDebugSphere(World, Center, DetectRadius, 16, FColor::Green, false, 0.2f);
-				// ∆˘ ¥ıπÃ ¡ﬂæ”ø° 10.0f ≈©±‚∏∏≈≠ ≥◊∏ ª˝º∫ (¿€æ∆º≠ æ»∫∏¿”)
+				// Ìè∞ ÎçîÎØ∏ Ï§ëÏïôÏóê 10.0f ÌÅ¨Í∏∞ÎßåÌÅº ÎÑ§Î™® ÏÉùÏÑ± (ÏûëÏïÑÏÑú ÏïàÎ≥¥ÏûÑ)
 				DrawDebugPoint(World, ControllingPawn->GetActorLocation(), 10.0f, FColor::Blue, false, 0.2f);
-				// ∆˘ ¥ıπÃøÕ ≥ª ∆˘ ªÁ¿Ã ∆ƒ∂ıªˆ ¡Ÿ  ª˝º∫
+				// Ìè∞ ÎçîÎØ∏ÏôÄ ÎÇ¥ Ìè∞ ÏÇ¨Ïù¥ ÌååÎûÄÏÉâ Ï§Ñ  ÏÉùÏÑ±
 				DrawDebugLine(World, ControllingPawn->GetActorLocation(), ABCharacter->GetActorLocation(), FColor::Blue, false, 0.2f);
 				return;
 			}
@@ -84,11 +78,11 @@ void UBTService_Detect::TickNode(UBehaviorTreeComponent& OwnerComp, uint8* NodeM
 	FCollisionQueryParams CollisionQueryParam(NAME_None, false, ControllingPawn);
 	bool bResult = World->OverlapMultiByChannel
 	(
-		OverlapResults, 
-		Center, 
-		FQuat::Identity, 
-		ECollisionChannel::ECC_GameTraceChannel2, 
-		FCollisionShape::MakeSphere(DetectRadius), 
+		OverlapResults,
+		Center,
+		FQuat::Identity,
+		ECollisionChannel::ECC_GameTraceChannel2,
+		FCollisionShape::MakeSphere(DetectRadius),
 		CollisionQueryParam
 	);
 	if (bResult)

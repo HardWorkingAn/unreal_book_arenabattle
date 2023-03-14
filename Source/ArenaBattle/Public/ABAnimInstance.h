@@ -8,12 +8,12 @@
 #include "Animation/AnimInstance.h"
 #include "ABAnimInstance.generated.h"
 
-//³ëÆ¼ÆÄÀÌ ¸ğ¼Ç ¿¬°á
+//ë…¸í‹°íŒŒì´ ëª¨ì…˜ ì—°ê²°
 DECLARE_MULTICAST_DELEGATE(FOnNextAttackCheckDelegate);
 DECLARE_MULTICAST_DELEGATE(FOnAttackHitCheckDelegate);
 
 /**
- * 
+ *
  */
 UCLASS()
 class ARENABATTLE_API UABAnimInstance : public UAnimInstance
@@ -24,39 +24,39 @@ public:
 	virtual void NativeUpdateAnimation(float DeltaSeconds) override;
 
 	void PlayAttackMontage();
-	
-	//³ëÆ¼ÆÄÀÌ ¸ğ¼Ç ¿¬°á
+
+	//ë…¸í‹°íŒŒì´ ëª¨ì…˜ ì—°ê²°
 	void JumpToAttackMontageSection(int32 NewSection);
 
 public:
 	FOnNextAttackCheckDelegate OnNextAttackCheck;
 	FOnAttackHitCheckDelegate OnAttackHitCheck;
 
-	// ´ë¹ÌÁö ¹Ş°í »ç¸ÁÇÏ´Â ¾Ö´Ï¸ŞÀÌ¼Ç
+	// ëŒ€ë¯¸ì§€ ë°›ê³  ì‚¬ë§í•˜ëŠ” ì• ë‹ˆë©”ì´ì…˜
 	void SetDeadAnim() { IsDead = true; }
-	
-// ¾Ö´Ï¸ŞÀÌ¼ÇÁß È÷Æ® ÆÇÁ¤
+
+	// ì• ë‹ˆë©”ì´ì…˜ì¤‘ íˆíŠ¸ íŒì •
 private:
-	// ¾ğ¸®¾ó ·±Å¸ÀÓÀÌ Ã£À» ¼ö ÀÖµµ·Ï ¹İµå½Ã UFUNCTION ¸ÅÅ©·Î·Î ÁöÁ¤ÇØÁà¾ßÇÑ´Ù.
+	// ì–¸ë¦¬ì–¼ ëŸ°íƒ€ì„ì´ ì°¾ì„ ìˆ˜ ìˆë„ë¡ ë°˜ë“œì‹œ UFUNCTION ë§¤í¬ë¡œë¡œ ì§€ì •í•´ì¤˜ì•¼í•œë‹¤.
 	UFUNCTION()
-	void AnimNotify_AttackHitCheck();
-	//³ëÆ¼ÆÄÀÌ ¸ğ¼Ç ¿¬°á
+		void AnimNotify_AttackHitCheck();
+	//ë…¸í‹°íŒŒì´ ëª¨ì…˜ ì—°ê²°
 	UFUNCTION()
-	void AnimNotify_NextAttackCheck();
+		void AnimNotify_NextAttackCheck();
 
 	FName GetAttackMontageSectionName(int32 Section);
 private:
-	//ºí·ç ÇÁ¸°Æ²¿¡¼­ Á¢±ÙÇÏ´Â Å°¿öµå´Â BlueprintReadOnly, BlueprintReadWrite µÎ °¡Áö°¡ ÀÖ´Ù.
-	UPROPERTY(EditAnyWhere, BlueprintReadOnly, Category=Pawn, Meta=(AllowPrivateAccess=true))
-	float CurrentPawnSpeed;
+	//ë¸”ë£¨ í”„ë¦°í‹€ì—ì„œ ì ‘ê·¼í•˜ëŠ” í‚¤ì›Œë“œëŠ” BlueprintReadOnly, BlueprintReadWrite ë‘ ê°€ì§€ê°€ ìˆë‹¤.
+	UPROPERTY(EditAnyWhere, BlueprintReadOnly, Category = Pawn, Meta = (AllowPrivateAccess = true))
+		float CurrentPawnSpeed;
 
-	UPROPERTY(EditAnyWhere, BlueprintReadOnly, Category=Pawn, Meta=(AllowPrivateAccess=true))
-	bool IsInAir;
+	UPROPERTY(EditAnyWhere, BlueprintReadOnly, Category = Pawn, Meta = (AllowPrivateAccess = true))
+		bool IsInAir;
 
 	UPROPERTY(VisibleDefaultsOnly, BlueprintReadOnly, Category = Attack, Meta = (AllowPrivateAccess = true))
-	UAnimMontage* AttackMontage;
+		UAnimMontage* AttackMontage;
 
-	// ´ë¹ÌÁö ¹Ş°í »ç¸ÁÇÏ´Â ¾Ö´Ï¸ŞÀÌ¼Ç (¼Ó¼ºÃß°¡)
+	// ëŒ€ë¯¸ì§€ ë°›ê³  ì‚¬ë§í•˜ëŠ” ì• ë‹ˆë©”ì´ì…˜ (ì†ì„±ì¶”ê°€)
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Pawn, Meta = (AllowPrivateAccess = true))
-	bool IsDead;
+		bool IsDead;
 };

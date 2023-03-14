@@ -3,18 +3,18 @@
 
 #include "ABItemBox.h"
 
-// ¾ÆÀÌÅÛ ½Àµæ ½Ã °ü·Ã ÇØ´õÆÄÀÏ
+// ì•„ì´í…œ ìŠµë“ ì‹œ ê´€ë ¨ í•´ë”íŒŒì¼
 #include "ABWeapon.h"
 
-// ¾ÆÀÌÅÛ ½Àµæ ½Ã ¹«±âº¯°æ
+// ì•„ì´í…œ ìŠµë“ ì‹œ ë¬´ê¸°ë³€ê²½
 #include "ABCharacter.h"
 
 // Sets default values
 AABItemBox::AABItemBox()
 {
- 	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
+	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = false;
-	
+
 	Trigger = CreateDefaultSubobject<UBoxComponent>(TEXT("TRIGGER"));
 	Box = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("BOX"));
 	Effect = CreateDefaultSubobject<UParticleSystemComponent>(TEXT("EFFECT"));
@@ -23,7 +23,7 @@ AABItemBox::AABItemBox()
 	Box->SetupAttachment(RootComponent);
 	Effect->SetupAttachment(RootComponent);
 
-	// Æ®¸®°Å ¹üÀ§(Å©±â)
+	// íŠ¸ë¦¬ê±° ë²”ìœ„(í¬ê¸°)
 	Trigger->SetBoxExtent(FVector(40.0f, 42.0f, 30.0f));
 	static ConstructorHelpers::FObjectFinder<UStaticMesh> SM_BOX(TEXT("StaticMesh'/Game/InfinityBladeGrassLands/Environments/Breakables/StaticMesh/Box/SM_Env_Breakables_Box1.SM_Env_Breakables_Box1'"));
 	if (SM_BOX.Succeeded())
@@ -40,11 +40,11 @@ AABItemBox::AABItemBox()
 
 	Box->SetRelativeLocation(FVector(0.0f, -3.5f, -30.0f));
 
-	// Æ®¸®°Å ÀÛµ¿ ÃÊ±â ¼ÂÆÃ 333p
+	// íŠ¸ë¦¬ê±° ì‘ë™ ì´ˆê¸° ì…‹íŒ… 333p
 	Trigger->SetCollisionProfileName(TEXT("ItemBox"));
 	Box->SetCollisionProfileName(TEXT("NoCollision"));
 
-	// ¾ÆÀÌÅÛ ½Àµæ½Ã ¹«±â º¯°æ
+	// ì•„ì´í…œ ìŠµë“ì‹œ ë¬´ê¸° ë³€ê²½
 	WeaponItemClass = AABWeapon::StaticClass();
 }
 
@@ -52,10 +52,10 @@ AABItemBox::AABItemBox()
 void AABItemBox::BeginPlay()
 {
 	Super::BeginPlay();
-	
+
 }
 
-// »ı¼ºÀü Overlap ¹ß»ıÇÏ¸é ÀÛµ¿µÇ°Ô µ¨¸®°ÔÀÌÆ® ¿¬µ¿
+// ìƒì„±ì „ Overlap ë°œìƒí•˜ë©´ ì‘ë™ë˜ê²Œ ë¸ë¦¬ê²Œì´íŠ¸ ì—°ë™
 void AABItemBox::PostInitializeComponents()
 {
 	Super::PostInitializeComponents();
@@ -69,11 +69,11 @@ void AABItemBox::Tick(float DeltaTime)
 
 }
 
-// Overlap ¹ß»ıÇÏ¿© ÀÌº¥Æ® ¹ß»ıÇßÀ» ½Ã 
+// Overlap ë°œìƒí•˜ì—¬ ì´ë²¤íŠ¸ ë°œìƒí–ˆì„ ì‹œ 
 void AABItemBox::OnCharacterOverlap(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
 	ABLOG_S(Warning);
-	
+
 	auto ABCharacter = Cast<AABCharacter>(OtherActor);
 	ABCHECK(nullptr != ABCharacter);
 
@@ -84,11 +84,11 @@ void AABItemBox::OnCharacterOverlap(UPrimitiveComponent* OverlappedComp, AActor*
 			auto NewWeapon = GetWorld()->SpawnActor<AABWeapon>(WeaponItemClass, FVector::ZeroVector, FRotator::ZeroRotator);
 			ABCharacter->SetWeapon(NewWeapon);
 
-			//ÀÌÆåÆ®Ãß°¡
+			//ì´í™íŠ¸ì¶”ê°€
 			Effect->Activate(true);
 			Box->SetHiddenInGame(true, true);
 			SetActorEnableCollision(false);
-			Effect->OnSystemFinished.AddDynamic(this, &AABItemBox::OnEffectFinished); // ÀÌÆåÆ® µ¨¸®°ÔÀÌÆ® ÀÛ¼º
+			Effect->OnSystemFinished.AddDynamic(this, &AABItemBox::OnEffectFinished); // ì´í™íŠ¸ ë¸ë¦¬ê²Œì´íŠ¸ ì‘ì„±
 		}
 		else
 		{
@@ -102,6 +102,3 @@ void AABItemBox::OnEffectFinished(UParticleSystemComponent* PSystem)
 {
 	Destroy();
 }
-
-
-

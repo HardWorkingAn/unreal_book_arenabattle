@@ -9,9 +9,9 @@
 UABAnimInstance::UABAnimInstance()
 {
 	CurrentPawnSpeed = 0.0f;
-	// IsInAir °øÁß¿¡¼­ ÀÖÀ¸¸é true ¾Æ´Ï¸é fasle
+	// IsInAir ê³µì¤‘ì—ì„œ ìˆìœ¼ë©´ true ì•„ë‹ˆë©´ fasle
 	IsInAir = false;
-	// ´ë¹ÌÁö ¹Ş±âÀü »ì¾ÆÀÖ´Â »óÅÂ bool °ª ¼³Á¤
+	// ëŒ€ë¯¸ì§€ ë°›ê¸°ì „ ì‚´ì•„ìˆëŠ” ìƒíƒœ bool ê°’ ì„¤ì •
 	IsDead = false;
 
 	static ConstructorHelpers::FObjectFinder<UAnimMontage> ATTACK_MONTAGE(TEXT("/Game/Book/animations/SK_Mannequin_Skeleton_Montage.SK_Mannequin_Skeleton_Montage"));
@@ -25,8 +25,8 @@ void UABAnimInstance::NativeUpdateAnimation(float DeltaSeconds)
 {
 	Super::NativeUpdateAnimation(DeltaSeconds);
 
-	// TryGetPawnOwner´Â ·ÎÁ÷´Ü°è¿¡ ÆùÀ» Á¦°ÅÇÏ°í ¾Ö´Ï¸ŞÀÌ¼ÇÀ» ½ÇÇàÇÑ´Ù¸é À¯È¿ÇÏÁö ¾Ê´Â Æù °´Ã¼¸¦ ÂüÁ¶ÇÏ°Ô µÇ¹Ç·Î
-	// ¾Ö´Ï¸ŞÀÌ¼Ç ½Ã½ºÅÛÀº Æù¿¡ Á¢±ÙÇÒ ¶§ Æù °´Ã¼°¡ À¯È£ÇÑÁö Á¡°ËÇÏ´Â ÇÔ¼ö
+	// TryGetPawnOwnerëŠ” ë¡œì§ë‹¨ê³„ì— í°ì„ ì œê±°í•˜ê³  ì• ë‹ˆë©”ì´ì…˜ì„ ì‹¤í–‰í•œë‹¤ë©´ ìœ íš¨í•˜ì§€ ì•ŠëŠ” í° ê°ì²´ë¥¼ ì°¸ì¡°í•˜ê²Œ ë˜ë¯€ë¡œ
+	// ì• ë‹ˆë©”ì´ì…˜ ì‹œìŠ¤í…œì€ í°ì— ì ‘ê·¼í•  ë•Œ í° ê°ì²´ê°€ ìœ í˜¸í•œì§€ ì ê²€í•˜ëŠ” í•¨ìˆ˜
 	auto Pawn = TryGetPawnOwner();
 	/*
 	if (::IsValid(Pawn))
@@ -35,22 +35,22 @@ void UABAnimInstance::NativeUpdateAnimation(float DeltaSeconds)
 		auto Character = Cast<ACharacter>(Pawn);
 		if (Character)
 		{
-			// IsFalling Å°¿öµå´Â ÇöÁ¦ °øÁß¿¡ ¶°ÀÖ´ÂÁö, ³«ÇÏÇÏ°í ÀÖ´ÂÁö(ÇöÀç ¶³¾îÁö°í ÀÖ´Â°¡?(¹Ù´Ú¿¡ ´êÁö¾Ê¾Ò´Â°¡?)) ¾Ë·ÁÁÖ´Â Å°¿öµå ³«ÇÏÇÏ´ÂÁßÀÌ¶ó¸é true ¾Æ´Ï¸é false 
-			// IsSwimming - ¼ö¿µÇÏ´ÂÁö È®ÀÎ  IsCrouching - ÂŞ±¸·Á(¾É¾Æ) ÀÖ´ÂÁö È®ÀÎ IsMoveOnGround - ¶¥ À§¿¡¼­ ÀÌµ¿ÁßÀÎÁö È®ÀÎ
+			// IsFalling í‚¤ì›Œë“œëŠ” í˜„ì œ ê³µì¤‘ì— ë– ìˆëŠ”ì§€, ë‚™í•˜í•˜ê³  ìˆëŠ”ì§€(í˜„ì¬ ë–¨ì–´ì§€ê³  ìˆëŠ”ê°€?(ë°”ë‹¥ì— ë‹¿ì§€ì•Šì•˜ëŠ”ê°€?)) ì•Œë ¤ì£¼ëŠ” í‚¤ì›Œë“œ ë‚™í•˜í•˜ëŠ”ì¤‘ì´ë¼ë©´ true ì•„ë‹ˆë©´ false
+			// IsSwimming - ìˆ˜ì˜í•˜ëŠ”ì§€ í™•ì¸  IsCrouching - ì­ˆêµ¬ë ¤(ì•‰ì•„) ìˆëŠ”ì§€ í™•ì¸ IsMoveOnGround - ë•… ìœ„ì—ì„œ ì´ë™ì¤‘ì¸ì§€ í™•ì¸
 			//IsInAir = Character->GetMovementComponent()->IsFalling();
 			IsInAir = Character->GetMovementComponent()->IsFalling();
-		}	
+		}
 	}
 	*/
 	if (!::IsValid(Pawn)) return;
-	if (!IsDead) // »ì¾ÆÀÖ´Ù¸é IsDead°¡ false¶ó¸é
+	if (!IsDead) // ì‚´ì•„ìˆë‹¤ë©´ IsDeadê°€ falseë¼ë©´
 	{
 		CurrentPawnSpeed = Pawn->GetVelocity().Size();
 		auto Character = Cast<ACharacter>(Pawn);
 		if (Character)
 		{
-			// IsFalling Å°¿öµå´Â ÇöÁ¦ °øÁß¿¡ ¶°ÀÖ´ÂÁö, ³«ÇÏÇÏ°í ÀÖ´ÂÁö(ÇöÀç ¶³¾îÁö°í ÀÖ´Â°¡?(¹Ù´Ú¿¡ ´êÁö¾Ê¾Ò´Â°¡?)) ¾Ë·ÁÁÖ´Â Å°¿öµå ³«ÇÏÇÏ´ÂÁßÀÌ¶ó¸é true ¾Æ´Ï¸é false 
-			// IsSwimming - ¼ö¿µÇÏ´ÂÁö È®ÀÎ  IsCrouching - ÂŞ±¸·Á(¾É¾Æ) ÀÖ´ÂÁö È®ÀÎ IsMoveOnGround - ¶¥ À§¿¡¼­ ÀÌµ¿ÁßÀÎÁö È®ÀÎ
+			// IsFalling í‚¤ì›Œë“œëŠ” í˜„ì œ ê³µì¤‘ì— ë– ìˆëŠ”ì§€, ë‚™í•˜í•˜ê³  ìˆëŠ”ì§€(í˜„ì¬ ë–¨ì–´ì§€ê³  ìˆëŠ”ê°€?(ë°”ë‹¥ì— ë‹¿ì§€ì•Šì•˜ëŠ”ê°€?)) ì•Œë ¤ì£¼ëŠ” í‚¤ì›Œë“œ ë‚™í•˜í•˜ëŠ”ì¤‘ì´ë¼ë©´ true ì•„ë‹ˆë©´ false 
+			// IsSwimming - ìˆ˜ì˜í•˜ëŠ”ì§€ í™•ì¸  IsCrouching - ì­ˆêµ¬ë ¤(ì•‰ì•„) ìˆëŠ”ì§€ í™•ì¸ IsMoveOnGround - ë•… ìœ„ì—ì„œ ì´ë™ì¤‘ì¸ì§€ í™•ì¸
 			//IsInAir = Character->GetMovementComponent()->IsFalling();
 			IsInAir = Character->GetMovementComponent()->IsFalling();
 		}
@@ -59,7 +59,7 @@ void UABAnimInstance::NativeUpdateAnimation(float DeltaSeconds)
 
 void UABAnimInstance::PlayAttackMontage()
 {
-	// µ¨¸®°ÔÀÌÆ®¿¡ ÀÇÇØ ½ÃÀÛ°ú Á¾·á°¡ °¨ÁöµÇ¹Ç·Î ±»ÀÌ Montage_IsPlayingÀ» »ç¿ëÇÏÁö ¾Ê¾Æµµ µÈ´Ù.	
+	// ë¸ë¦¬ê²Œì´íŠ¸ì— ì˜í•´ ì‹œì‘ê³¼ ì¢…ë£Œê°€ ê°ì§€ë˜ë¯€ë¡œ êµ³ì´ Montage_IsPlayingì„ ì‚¬ìš©í•˜ì§€ ì•Šì•„ë„ ëœë‹¤.	
 	//if (!Montage_IsPlaying(AttackMontage))
 	//{
 	//	Montage_Play(AttackMontage, 1.0f);
@@ -71,14 +71,14 @@ void UABAnimInstance::PlayAttackMontage()
 
 
 
-// ³ëÆ¼ÆÄÀÌ ¸ğ¼Ç ¿¬°á
+// ë…¸í‹°íŒŒì´ ëª¨ì…˜ ì—°ê²°
 void UABAnimInstance::JumpToAttackMontageSection(int32 NewSection)
 {
 	ABCHECK(!IsDead);
 	ABCHECK(Montage_IsPlaying(AttackMontage));
 	Montage_JumpToSection(GetAttackMontageSectionName(NewSection), AttackMontage);
 }
-// °ø°İ ¸ğ¼Ç Ã¼Å©
+// ê³µê²© ëª¨ì…˜ ì²´í¬
 void UABAnimInstance::AnimNotify_AttackHitCheck()
 {
 	OnAttackHitCheck.Broadcast();

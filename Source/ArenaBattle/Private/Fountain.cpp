@@ -8,43 +8,43 @@
 // Sets default values
 AFountain::AFountain()
 {
- 	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
+	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	//PrimaryActorTick.bCanEverTick = true;
 	PrimaryActorTick.bCanEverTick = false;
 
-	// ÄÄÆ÷³ÍÆ® »ı¼º
+	// ì»´í¬ë„ŒíŠ¸ ìƒì„±
 	Body = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("BODY"));
 	Water = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("WATER"));
 	Light = CreateDefaultSubobject<UPointLightComponent>(TEXT("LIGHT"));
 	Splash = CreateDefaultSubobject<UParticleSystemComponent>(TEXT("SPLASH"));
 	Movement = CreateDefaultSubobject<URotatingMovementComponent>(TEXT("MOVEMENT"));
-	
-	// ÄÄÆ÷³ÍÆ® ºÎ¸ğRoot ¼³Á¤
+
+	// ì»´í¬ë„ŒíŠ¸ ë¶€ëª¨Root ì„¤ì •
 	RootComponent = Body;
-	// BodyÄÄÆ÷³ÍÆ® ÀÚ½ÄÀ¸·Î Ãß°¡
+	// Bodyì»´í¬ë„ŒíŠ¸ ìì‹ìœ¼ë¡œ ì¶”ê°€
 	Water->SetupAttachment(Body);
 	Light->SetupAttachment(Body);
 	Splash->SetupAttachment(Body);
-	// À§Ä¡ Á¶Á¤
+	// ìœ„ì¹˜ ì¡°ì •
 	Water->SetRelativeLocation(FVector(0.0f, 0.0f, 135.0f));
 	Light->SetRelativeLocation(FVector(0.0f, 0.0f, 195.0f));
 	Splash->SetRelativeLocation(FVector(0.0f, 0.0f, 195.0f));
-	// ºĞ¼ö °¢¼Óµµ
+	// ë¶„ìˆ˜ ê°ì†ë„
 	RotateSpeed = 30.0f;
-	// ÄÄÆ÷³ÍÆ®¸¦ ÀÌ¿ëÇÏ¿© tick À» »ç¿ëÇÏÁö ¾Ê°í ¶È°°ÀÌ È¸Àü ½ÃÅ³ ¼ö ÀÖ´Ù.
-	// À­ ºÎºĞ Ã³·³ StaticMesh ÄÄÆ÷³ÍÆ® Ã³·³ Æ®·£½ºÆû Á¤º¸°¡ ÇÊ¼öÀûÀÎ ÄÄÆ÷³ÍÆ®¸¦ ¾À ÄÄÆ÷³ÍÆ®¶ó°í ÇÏ°í
-	// ¿òÁ÷ÀÓ °ü·Ã ÄÄÆ÷³ÍÆ®¸¦ ¾×¼Ç ÄÄÆ÷³ÍÆ®¶ó°í ÇÑ´Ù.
+	// ì»´í¬ë„ŒíŠ¸ë¥¼ ì´ìš©í•˜ì—¬ tick ì„ ì‚¬ìš©í•˜ì§€ ì•Šê³  ë˜‘ê°™ì´ íšŒì „ ì‹œí‚¬ ìˆ˜ ìˆë‹¤.
+	// ìœ— ë¶€ë¶„ ì²˜ëŸ¼ StaticMesh ì»´í¬ë„ŒíŠ¸ ì²˜ëŸ¼ íŠ¸ëœìŠ¤í¼ ì •ë³´ê°€ í•„ìˆ˜ì ì¸ ì»´í¬ë„ŒíŠ¸ë¥¼ ì”¬ ì»´í¬ë„ŒíŠ¸ë¼ê³  í•˜ê³ 
+	// ì›€ì§ì„ ê´€ë ¨ ì»´í¬ë„ŒíŠ¸ë¥¼ ì•¡ì…˜ ì»´í¬ë„ŒíŠ¸ë¼ê³  í•œë‹¤.
 	Movement->RotationRate = FRotator(0.0f, RotateSpeed, 0.0f);
 
 
-	// SM_BODY º¯¼ö¿¡ ¿ÀºêÁ§Æ® º¯¼ö¸¦ ¸í½ÃÀûÀ¸·Î ÆÄÀÏÀ§Ä¡/ÆÄÀÏ¸íÀ» ¼³Á¤ÇÏ´Â°Í
+	// SM_BODY ë³€ìˆ˜ì— ì˜¤ë¸Œì íŠ¸ ë³€ìˆ˜ë¥¼ ëª…ì‹œì ìœ¼ë¡œ íŒŒì¼ìœ„ì¹˜/íŒŒì¼ëª…ì„ ì„¤ì •í•˜ëŠ”ê²ƒ
 	static ConstructorHelpers::FObjectFinder<UStaticMesh>
 		SM_BODY(TEXT("/Game/InfinityBladeGrassLands/Environments/Plains/Env_Plains_Ruins/StaticMesh/SM_Plains_Castle_Fountain_01.SM_Plains_Castle_Fountain_01"));
 
-	
+
 	if (SM_BODY.Succeeded())
 	{
-		// FountainÀÇ ¿ÀºêÁ§Æ®¸¦ µå·¡±× ÇÒ ½Ã ÀÚµ¿ÀûÀ¸·Î SM_BODY ¿ÀºêÁ§Æ®¸¦ »ç¿ë (Fountain µå·¡±× ÇØ¼­ ²¨³»¾î ¾µ¶§ È®ÀÎ °¡´É
+		// Fountainì˜ ì˜¤ë¸Œì íŠ¸ë¥¼ ë“œë˜ê·¸ í•  ì‹œ ìë™ì ìœ¼ë¡œ SM_BODY ì˜¤ë¸Œì íŠ¸ë¥¼ ì‚¬ìš© (Fountain ë“œë˜ê·¸ í•´ì„œ êº¼ë‚´ì–´ ì“¸ë•Œ í™•ì¸ ê°€ëŠ¥
 		Body->SetStaticMesh(SM_BODY.Object);
 	}
 
@@ -64,7 +64,7 @@ AFountain::AFountain()
 		Splash->SetTemplate(PS_SPLASH.Object);
 	}
 
-	
+
 }
 
 // Called when the game starts or when spawned
@@ -93,7 +93,7 @@ void AFountain::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
-	//ÇÁ·¹ÀÓ¸¶´Ù °¢µµº¯°æ
-	//AddActorLocalRotation(FRotator(X Ãà, Z Ãà, YÃà)); À§Ä¡°¡ ¾Æ´Ñ È¸Àü
+	//í”„ë ˆì„ë§ˆë‹¤ ê°ë„ë³€ê²½
+	//AddActorLocalRotation(FRotator(X ì¶•, Z ì¶•, Yì¶•)); ìœ„ì¹˜ê°€ ì•„ë‹Œ íšŒì „
 	//AddActorLocalRotation(FRotator(0.0f, RotateSpeed * DeltaTime, 0.0f));
 }

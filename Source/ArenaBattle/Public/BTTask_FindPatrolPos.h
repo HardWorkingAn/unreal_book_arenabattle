@@ -11,13 +11,15 @@
  * 
  */
 
-// TaskNode¸¦ ¾²±â À§ÇØ¼­´Â Bulid.cs ¿¡¼­  "GameplayTasks" ¸¦ Ãß°¡ ÇØÁà¾ß ÄÄÆÄÀÏ¿¡¼­ ¿À·ù°¡ ¹ß»ıÇÏÁö ¾Ê´Â´Ù.
+// TaskNodeë¥¼ ì“°ê¸° ìœ„í•´ì„œëŠ” Bulid.cs ì—ì„œ  "GameplayTasks" ë¥¼ ì¶”ê°€ í•´ì¤˜ì•¼ ì»´íŒŒì¼ì—ì„œ ì˜¤ë¥˜ê°€ ë°œìƒí•˜ì§€ ì•ŠëŠ”ë‹¤.
+
 
 UCLASS()
 class ARENABATTLE_API UBTTask_FindPatrolPos : public UBTTaskNode
 {
 	GENERATED_BODY()
-	
+
+
 public:
 	UBTTask_FindPatrolPos();
 

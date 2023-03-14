@@ -16,35 +16,34 @@ class ARENABATTLE_API AABAIController : public AAIController
 {
 	GENERATED_BODY()
 
-// Æù¿¡°Ô 3ÃÊ¸¶´Ù ¸ñÀûÁö·Î ÀÌµ¿ÇÏ´Â ¸í·É
-// ¾ğ¸®¾ó ³×ºñ°ÔÀÌ¼ÇÀº ÀÌµ¿°¡´ÉÇÑ ¸ñÀûÁö¸¦ ·£´ıÀ¸·Î °¡Á®¿À´Â GetRandomPointInNavigableRTadius ÇÔ¼ö¿Í ¸ñÀûÁö·Î ÆùÀ» ÀÌµ¿½ÃÅ°´Â SimpleMoveToLocation ÇÔ¼ö Á¦°ø
+// í°ì—ê²Œ 3ì´ˆë§ˆë‹¤ ëª©ì ì§€ë¡œ ì´ë™í•˜ëŠ” ëª…ë ¹
+// ì–¸ë¦¬ì–¼ ë„¤ë¹„ê²Œì´ì…˜ì€ ì´ë™ê°€ëŠ¥í•œ ëª©ì ì§€ë¥¼ ëœë¤ìœ¼ë¡œ ê°€ì ¸ì˜¤ëŠ” GetRandomPointInNavigableRTadius í•¨ìˆ˜ì™€ ëª©ì ì§€ë¡œ í°ì„ ì´ë™ì‹œí‚¤ëŠ” SimpleMoveToLocation í•¨ìˆ˜ ì œê³µ
 public:
 	AABAIController();
-	// AI ·£´ıÀ§Ä¡ ÀÌµ¿
+	// AI ëœë¤ìœ„ì¹˜ ì´ë™
 	virtual void OnPossess(APawn* InPawn) override;
 	//virtual void OnUnPossess() override;
 
-	//ºí·¢º¸µå ¿¡¼­ Å° Ãß°¡ ÇÑ°Å ¿¬°á
+	//ë¸”ë™ë³´ë“œ ì—ì„œ í‚¤ ì¶”ê°€ í•œê±° ì—°ê²°
 	static const FName HomePosKey;
 	static const FName PatrolPosKey;
 
 	static const FName TargetKey;
 
-	// 14Àå 509p
+	// 14ì¥ 509p
 	void RunAI();
 	void StopAI();
 private:
-	// AI ·£´ıÀ§Ä¡ ÀÌµ¿
+	// AI ëœë¤ìœ„ì¹˜ ì´ë™
 	/*
 	void OnRepeatTimer();
 	FTimerHandle RePeatTimerHandle;
 	float ReapeatInterval;
 	*/
-	// ºñÇìÀÌºñ¾î Æ®¸® ¹× ºí·¢º¸µå »ç¿ë AIÀÌµ¿
+	// ë¹„í—¤ì´ë¹„ì–´ íŠ¸ë¦¬ ë° ë¸”ë™ë³´ë“œ ì‚¬ìš© AIì´ë™
 	UPROPERTY()
-	class UBehaviorTree* BTAsset;
+		class UBehaviorTree* BTAsset;
 
 	UPROPERTY()
-	class UBlackboardData* BBAsset;
-
+		class UBlackboardData* BBAsset;
 };

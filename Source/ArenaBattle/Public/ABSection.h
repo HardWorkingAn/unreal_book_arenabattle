@@ -1,4 +1,4 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+ï»¿// Fill out your copyright notice in the Description page of Project Settings.
 
 #pragma once
 
@@ -17,7 +17,7 @@ public:
 	// Sets default values for this actor's properties
 	AABSection();
 
-	// ¿¡µğÅÍ ÀÛ¾÷¿¡¼­ ¼±ÅÃÇÑ ¾×ÅÍÀÇ ¼Ó¼ºÀÌ³ª Æ®·£½ºÆû Á¤º¸°¡ º¯°æµÉ¶§ ÇÔ¼ö ½ÇÇà (ex : ¹® ¿­¸±¶§ Æ®·£½º Æû Á¤º¸(À§Ä¡, È¸Àü, ½ºÄÉÀÏ(Å©±â))°¡ º¯°æµÇ¹Ç·Î ÀÛµ¿)
+	// ì—ë””í„° ì‘ì—…ì—ì„œ ì„ íƒí•œ ì•¡í„°ì˜ ì†ì„±ì´ë‚˜ íŠ¸ëœìŠ¤í¼ ì •ë³´ê°€ ë³€ê²½ë ë•Œ í•¨ìˆ˜ ì‹¤í–‰ (ex : ë¬¸ ì—´ë¦´ë•Œ íŠ¸ëœìŠ¤ í¼ ì •ë³´(ìœ„ì¹˜, íšŒì „, ìŠ¤ì¼€ì¼(í¬ê¸°))ê°€ ë³€ê²½ë˜ë¯€ë¡œ ì‘ë™)
 	virtual void OnConstruction(const FTransform& Transform) override;
 
 protected:
@@ -41,8 +41,8 @@ private:
 
 	void OperateGates(bool bOpen = true);
 
-	// ÇÃ·¹ÀÌ¾î °¨ÁöµÇ¸é Ã¶¹® ¹æÇâÀ¸·Î ¾×ÅÍ»ı¼º ÇÏ´Â ·ÎÁ÷ ¸¸µé±â
-	// ÇÏÁö¸¸ ÀÌ¹Ì ÇØ´ç À§Ä¡¿¡ ¾×ÅÍ°¡ Á¸Àç ÇÒ ¼ö ÀÖÀ¸¹Ç·Î ¹Ì¸® È®ÀÎÇÏ´Â ·ÎÁ÷ÀÌ ÇÊ¿ä
+	// í”Œë ˆì´ì–´ ê°ì§€ë˜ë©´ ì² ë¬¸ ë°©í–¥ìœ¼ë¡œ ì•¡í„°ìƒì„± í•˜ëŠ” ë¡œì§ ë§Œë“¤ê¸°
+	// í•˜ì§€ë§Œ ì´ë¯¸ í•´ë‹¹ ìœ„ì¹˜ì— ì•¡í„°ê°€ ì¡´ì¬ í•  ìˆ˜ ìˆìœ¼ë¯€ë¡œ ë¯¸ë¦¬ í™•ì¸í•˜ëŠ” ë¡œì§ì´ í•„ìš”
 	
 	UFUNCTION()
 	void OnTriggerBeginOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex,
@@ -53,7 +53,7 @@ private:
 									bool bFromSweep, const FHitResult& SweepResult);
 	
 	void OnNPCSpawn();
-	// ¾ğ¸®¾ó¿¡¼­ Á¦°øµÇ´Â ÇÔ¼ö°¡ ¾Æ´Ô
+	// ì–¸ë¦¬ì–¼ì—ì„œ ì œê³µë˜ëŠ” í•¨ìˆ˜ê°€ ì•„ë‹˜
 	UFUNCTION()
 	void OnKeyNPCDestroyed(AActor* DestroyedActor);
 

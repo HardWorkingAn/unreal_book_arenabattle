@@ -33,4 +33,8 @@ public:
 
 	UPROPERTY()
 	int32 HighScore;
+
+	// 592p 새로운 게임 캐릭터 선택 값 저장
+	UPROPERTY()
+	int32 CharacterIndex;
 };

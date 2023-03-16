@@ -104,6 +104,8 @@ void UABCharacterSelectWidget::OnConfirmClicked()
 	NewPlayerData->Level = 1;
 	NewPlayerData->Exp = 0;
 	NewPlayerData->HighScore = 0;
+	// 선택한 캐릭터 Index 저장
+	NewPlayerData->CharacterIndex = CurrentIndex;
 
 	// GetDefault()는 UClass를 상속받은 클래스에서 사용할 수 있는 함수
 	auto ABPlayerState = GetDefault<AABPlayerState>();

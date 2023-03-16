@@ -1,4 +1,4 @@
-﻿// Fill out your copyright notice in the Description page of Project Settings.
+// Fill out your copyright notice in the Description page of Project Settings.
 #include "ABPlayerState.h"
 
 // 경험치 저장 및 레벨변화 532p
@@ -16,6 +16,9 @@ AABPlayerState::AABPlayerState()
 	// 15장 GameSave파일 554p
 	GameHighScore = 0;
 	SaveSlotName = TEXT("Player1");
+
+	// 595p 선택한 캐릭터 Index 가져오기
+	CharacterIndex = 0;
 }
 
 int32 AABPlayerState::GetGameScore() const
@@ -33,6 +36,11 @@ int32 AABPlayerState::GetGameHighScroe() const
 	return GameHighScore;
 }
 
+int32 AABPlayerState::GetCharacterIndex() const
+{
+	return CharacterIndex;
+}
+
 void AABPlayerState::InitPlayerData()
 {
 	// 555p 에서 다시 작성
@@ -44,6 +52,7 @@ void AABPlayerState::InitPlayerData()
 	GameScore = 0;
 	*/
 
+	// 데이터 가져오기
 	auto ABSaveGmae = Cast<UABSaveGame>(UGameplayStatics::LoadGameFromSlot(SaveSlotName, 0));
 	if (nullptr == ABSaveGmae)
 	{
@@ -54,17 +63,23 @@ void AABPlayerState::InitPlayerData()
 	GameScore = 0;
 	GameHighScore = ABSaveGmae->HighScore;
 	Exp = ABSaveGmae->Exp;
+	// 595p 추가
+	CharacterIndex = ABSaveGmae->CharacterIndex;
+
 	//경험치 변동이 있을때 마다 저장 557p 추가
 	SavePlayerData();
 }
 
 void AABPlayerState::SavePlayerData()
 {
+	// 데이터 저장
 	UABSaveGame* NewPlayerData = NewObject<UABSaveGame>();
 	NewPlayerData->PlayerName = GetPlayerName();
 	NewPlayerData->Level = CharacterLevel;
 	NewPlayerData->Exp = Exp;
 	NewPlayerData->HighScore = GameHighScore;
+	// 595p 선택한 캐릭터 Index 저장
+	NewPlayerData->CharacterIndex = CharacterIndex;
 
 	if (!UGameplayStatics::SaveGameToSlot(NewPlayerData, SaveSlotName, 0))
 	{

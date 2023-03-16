@@ -1,4 +1,4 @@
-﻿// Fill out your copyright notice in the Description page of Project Settings.
+// Fill out your copyright notice in the Description page of Project Settings.
 
 #pragma once
 
@@ -14,6 +14,7 @@
 
 // 현제 게임에서 플레이어 레벨, 체력, 경험치, 점수를 저장하는 곳
 // 외부 클래스에서 ABPlayerState 함수를 이용해 레벨 체력 경험치 점수를 설정함
+// 플레이 하고있는 현제 캐릭터의 State를 나타내는 곳
 
 DECLARE_MULTICAST_DELEGATE(FOnPlayerChangedDelegate);
 
@@ -31,6 +32,8 @@ public:
 	// 15장 GameSave파일 554p
 	int32 GetGameHighScroe() const;
 	FString SaveSlotName;
+	// 595p 선택한 캐릭터 Index 가져오기
+	int32 GetCharacterIndex() const;
 	//
 
 	void InitPlayerData();
@@ -65,6 +68,9 @@ protected:
 	UPROPERTY(Transient)
 	int32 Exp;
 
+	// 595p 선택한 캐릭터 Index 가져오기
+	UPROPERTY(Transient)
+	int32 CharacterIndex;
 private:
 	// 경험치 저장 및 레벨변화 532p
 	void SetCharacterLevel(int32 NewCharacterLevel);

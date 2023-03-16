@@ -1,4 +1,4 @@
-﻿// Fill out your copyright notice in the Description page of Project Settings.
+// Fill out your copyright notice in the Description page of Project Settings.
 
 
 #include "ABCharacter.h"
@@ -357,7 +357,14 @@ void AABCharacter::BeginPlay()
 
 	if (bIsPlayer)
 	{
-		AssetIndex = 4;
+		//AssetIndex = 4;
+		// 595p 선택한 캐릭터 Index 가져오기
+		// 코드에서는 GetPlayerState() 말고 PlayerState를 가져오는걸로 되어있는데
+		// 오류발생함
+		auto ABPlayerState = Cast<AABPlayerState>(GetPlayerState());
+		ABCHECK(nullptr != ABPlayerState);
+		AssetIndex = ABPlayerState->GetCharacterIndex();
+		ABLOG(Warning, TEXT("인덱스 : %d"), ABPlayerState->GetCharacterIndex());
 	}
 	else
 	{

@@ -1,4 +1,4 @@
-﻿// Fill out your copyright notice in the Description page of Project Settings.
+ // Fill out your copyright notice in the Description page of Project Settings.
 
 
 #include "ABGameMode.h"
@@ -38,6 +38,10 @@ AABGameMode::AABGameMode()
 	//GameStateClass = AABGameMode::StaticClass(); // 에러 발생
 	GameStateClass = AABGameState::StaticClass();
 	ABLOG(Warning, TEXT("생성자 호출"));
+
+	// 615p 추가 ( 맵이 COMPLATE가 되면 1 추가되는 형식으로 맵 2개가 COMPLATE 되면 미션 완료)
+    // 맵 클리어 해야하는 갯수
+	ScoreToClear = 10;
 }
 
 void AABGameMode::PostInitializeComponents()
@@ -83,6 +87,32 @@ void AABGameMode::AddScore(AABPlayerController* ScoredPlayer)
 	// ABGameState에 대해 변수와 함수가 액세스를 할 수가 없어 AddGameScore를 호출할 수 없었다.
 
 	ABGameState->AddGameScore();
+
+	// 615p 코드 추가 (미션 완료 UI출력 관련)
+	if (GetScore() >= ScoreToClear)
+	{
+		ABGameState->SetGameCleared();
+		// FConstPawnIterator 는 APawn 클래스의 인스턴스를 순회하기 위한 상수 이터레이터
+		// 현재 월드에 활성화된 APawn 클래스 목록을 가져온다.
+		// 단. 상수이기 떄문에 각 정보값은 가져올 수 있지만 삭제나 수정은 불가능하다.
+		for (FConstPawnIterator It = GetWorld()->GetPawnIterator(); It; ++It)
+		{
+			// 가져온 Pawn들 전부 비활성화
+			(*It)->TurnOff();
+		}
+		// 모든 플레이어 컨트롤러를 가져와서 AABPlayerController 캐스팅 해서 ABPlayerController에 대입
+		for (FConstPlayerControllerIterator It = GetWorld()->GetPlayerControllerIterator(); It; ++It)
+		{
+			const auto ABPlayerController = Cast<AABPlayerController>(It->Get());
+			// AABPlayerController 클래스를 상속받은 컨트룰러는 플레이어(나) 밖에 없으니
+			// 다른 컨트룰러는 Cast가 되지않아 nullptr 를 가지게 되고 플레이어(나)차례가 오면 ShowResultUI 호출 
+			if (nullptr != ABPlayerController)
+			{
+				ABPlayerController->ShowResultUI();
+			}
+		}
+	}
+
 }
 
 int32 AABGameMode::GetScore() const

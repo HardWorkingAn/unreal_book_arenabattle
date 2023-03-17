@@ -22,10 +22,16 @@ public:
 	int32 GetTotalGameScore() const;
 	void AddGameScore();
 
+	// 614p 미션 완료 되면 UI 출력
+	void SetGameCleared();
+	bool IsGameCleared() const;
+
 private:
 	UPROPERTY(Transient)
 	int32 TotalGameScore;
 
-
+	// 614p 미션 완료 되면 UI 출력
+	UPROPERTY()
+	bool bGameCleared;
 
 };

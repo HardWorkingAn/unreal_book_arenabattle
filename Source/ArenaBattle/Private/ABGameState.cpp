@@ -5,6 +5,9 @@
 AABGameState::AABGameState()
 {
 	TotalGameScore = 0;
+
+	// 614p 추가
+	bGameCleared = false;
 }
 
 int32 AABGameState::GetTotalGameScore() const
@@ -15,4 +18,16 @@ int32 AABGameState::GetTotalGameScore() const
 void AABGameState::AddGameScore()
 {
 	TotalGameScore++;
+}
+
+// 614p 기본작성
+void AABGameState::SetGameCleared()
+{
+	bGameCleared = true;
+}
+
+// 614p 기본작성
+bool AABGameState::IsGameCleared() const
+{
+	return bGameCleared;
 }

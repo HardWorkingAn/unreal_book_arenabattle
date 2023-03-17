@@ -32,4 +32,7 @@ public:
 private:
 	UPROPERTY()
 	class AABGameState* ABGameState;
+
+	// 615p 미션 완료되면 Result UI 출력
+	int32 ScoreToClear;
 };

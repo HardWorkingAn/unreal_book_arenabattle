@@ -258,7 +258,9 @@ void AABCharacter::SetCharacterState(ECharacterState NewState)
 		GetWorld()->GetTimerManager().SetTimer(DeadTimerHandle, FTimerDelegate::CreateLambda([this]()->void {
 			if (bIsPlayer)
 			{
-				ABPlayerController->RestartLevel();
+				// 616p 코드 추가 및 변경(재시작이 아니라 ResultUI출력)
+				//ABPlayerController->RestartLevel();
+				ABPlayerController->ShowResultUI();
 			}
 			else
 			{

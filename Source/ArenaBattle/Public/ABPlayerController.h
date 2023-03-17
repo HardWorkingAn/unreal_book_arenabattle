@@ -32,11 +32,28 @@ public:
 	// 546p
 	void AddGameScore() const;
 
+	// 606p 게임중지 기능
+	void ChangeInputMode(bool bGameMode = true);
+
+	// 611p 결과값 UI 출력 키
+	void ShowResultUI();
+
 protected:
 	virtual void BeginPlay() override;
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = UI)
 	TSubclassOf<class UABHUDWidget> HUDWidgetClass;
+
+	// 600p 게임 중지 기능 키 바인딩
+	virtual void SetupInputComponent() override;
+
+	// 606p 게임중지 기능
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = UI)
+	TSubclassOf<class UABGamePlayWidget> MenuWidgetClass;
+
+	// 611p 결과값 UI 출력
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = UI)
+	TSubclassOf<class UABGamePlayResultWidget> ResultWidgetClass;
 
 private:
 	UPROPERTY()
@@ -45,4 +62,21 @@ private:
 	// 경험치 저장 및 레벨변화 536p
 	UPROPERTY()
 	class AABPlayerState* ABPlayerState;
+
+	// 606p 게임중지 기능
+	UPROPERTY()
+	class UABGamePlayWidget* MenuWidget;
+
+	// 611p 결과값 UI 출력 
+	UPROPERTY()
+	class UABGamePlayResultWidget* ResultWidget;
+
+	// 600p 게임 중지 기능 키 바인딩
+	void OnGamePause();
+
+	// 606p 게임중지 기능 변수
+	FInputModeGameOnly GameInputMode;
+	FInputModeUIOnly UIInputMode;
+	
+	
 };
